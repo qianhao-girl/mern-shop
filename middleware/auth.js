@@ -9,8 +9,11 @@ let auth = (req, res, next) => {
             isAuth: false,
             error: true
         });
-        res.token = token;
-        res.user = user;
+        // res.token = token;
+        // res.user = user;
+        //this req. serve as a middleman to pass info to the next 
+        req.token = token;
+        req.user = user;
         console.log(user);
         next();
     });
