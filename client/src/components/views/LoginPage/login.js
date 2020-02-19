@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../acions/user_actions';
-import App from "../../App.css";
+import { loginUser } from "../../../actions/user_actions";
+// import { loginUser } from '../../acions/user_actions';
+// import App from "../../App.css";
 
 class Login extends Component{
 
@@ -21,7 +22,7 @@ class Login extends Component{
         event.preventDefault();
         let dataToSubmit = {
             email: this.state.email,
-            password: t;his.state.password
+            password: this.state.password
         };
         if(this.isFormValid(this.state)){
             this.setState({ errors: []});
@@ -33,7 +34,7 @@ class Login extends Component{
                       this.setState({ 
                           errors: this.state.errors.cancat(
                               response.payload.message
-                          );
+                          )
                       })
                   }
               })
@@ -50,11 +51,11 @@ class Login extends Component{
         return email && password;
     }
 
-    displayErrors = (errors) => {
-        errors.map((err,index)=> {
-        <p key={ index }>{ err }</p>
-        });
-    }
+    // displayErrors = (errors) => {
+    //     errors.map((err,index)=> {
+    //         <p key={ index }>{ err }</p>
+    //     });
+    // }
 
     render(){
         return(
@@ -77,11 +78,11 @@ class Login extends Component{
                                 className="form-control" id="password"
                                 onChange={ this.changeHandler } />
                         </div> 
-                        {this.state.errors.length > 0 && (
+                        {/* {this.state.errors.length > 0 && (
                             <div className="form-group">s
                                 {this.displayErrors(this.state.errors)}
                             </div>
-                        )}
+                        )} */}
                         <div className="form-group">
                             <button className="primary-button">submit</button>
                         </div>                     
@@ -98,4 +99,4 @@ function mapStateToProps(state){
     }
 };
 
-export default connect(mapStateToPros)(Login);
+export default connect(mapStateToProps)(Login);

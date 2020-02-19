@@ -1,0 +1,14 @@
+.Logo{
+    height: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing:border-box;
+}
+
+.Logo{
+    object-fit: cover;
+}
+/* .NavLink{
+    display:block;
+} */

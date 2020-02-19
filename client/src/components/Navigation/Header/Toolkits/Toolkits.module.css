@@ -1,0 +1,19 @@
+.Toolkits{
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowarp;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: -1rem;
+}
+
+.Tool {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin: auto 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+}

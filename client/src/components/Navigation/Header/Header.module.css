@@ -1,0 +1,84 @@
+.Header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    /* height: 100%; */
+    margin: auto;
+    padding: 2rem auto;
+    /* position:fixed;
+    z-index: 1; */
+    background: white;
+    box-shadow: 0px 3px 0px 0px rgba(179, 172, 172, 0.2);; 
+}
+
+.Nav{
+    display: none;
+}
+
+.Start{
+    box-sizing: border-box;
+    margin-left: 2rem;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.SideDrawerToggleContainer{
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    margin: auto 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: auto;
+}
+
+.LogoContainer{
+    box-sizing: border-box;
+    width: 97px;
+    height: 40px;
+    margin: auto 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: auto;
+}
+
+.End{
+    margin-right: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+
+.IconWrapper{
+    display: inline-flex;
+    justify-content: space-around;
+    align-items:center;
+    height: 40px;
+    width: 40px;
+    /* vertical-align: middle; */
+}
+
+.Button {
+    border: none;
+    /* color: inherit; */
+    vertical-align: middle;
+    background: none;
+}
+
+/* @media screen and (min-width: 700px){ */
+    /* .Nav{
+        display: block;
+    }
+} */

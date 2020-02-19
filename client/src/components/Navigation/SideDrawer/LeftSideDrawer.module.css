@@ -1,0 +1,63 @@
+.SideDrawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    box-sizing: border-box;
+    width: 40vw;
+    height: 100%;
+    max-width: 70vw; 
+    background: white;
+    padding: 2rem 4rem 2rem 2rem;     
+    transition: all 0.3s ease-out;
+    overflow: hidden;
+}
+
+.Close{
+    transform: translateX(-100%);
+}
+
+.Open{
+    transform: translateX(0);
+}
+
+/* .Logo{
+    display: inline-block;
+    height: 100%;
+    margin-bottom: 32px;    
+} */
+
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 12%;
+    padding-bottom: 1rem;
+    border-bottom: solid 1px rgb(124, 122, 122);
+}
+
+.SideDrawerToggleContainer{
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    margin: auto 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: auto;
+ }
+ 
+ .LogoContainer{
+    box-sizing: border-box;
+    width: 97px;
+    height: 40px;
+    margin: auto 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: auto;
+ }
+
+
