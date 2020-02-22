@@ -9,7 +9,7 @@ import classes from './Layout.module.css';
 export default class Layout extends Component{
 
     state = {
-        showSideDrawer: false
+        showSideDrawer: false,
     };
 
     sideDrawerToggler = () =>{
@@ -25,7 +25,8 @@ export default class Layout extends Component{
         return(
             <>
                 <div className={classes.Header}>
-                    <Header toggleSideDrawer={this.sideDrawerToggler}/>
+                    <Header 
+                        toggleSideDrawer={this.sideDrawerToggler}/>
                 </div>
                 <div>
                     <LeftSideDrawer 

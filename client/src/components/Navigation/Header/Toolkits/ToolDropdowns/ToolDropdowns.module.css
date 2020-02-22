@@ -1,0 +1,15 @@
+.multiPageMenuRender{
+    z-index: 1000; 
+    position: fixed; 
+    right: 1rem;
+    margin-top: 1rem;
+    display: none;
+    width: 300px;
+    border: solid 1px gray;
+    color: yellow;
+}
+
+.Showing{
+    display: block;
+}
+

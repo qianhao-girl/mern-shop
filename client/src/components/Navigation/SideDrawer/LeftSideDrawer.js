@@ -12,7 +12,7 @@ export default function LeftSideDrawer(props){
 
     return (
         <div className={attachedClasses.join(' ')}>           
-            <div className={ classes.Header }>
+            <div className={ `${classes.Header} ${classes.Section}`  }>
                 <div className={classes.SideDrawerToggleContainer}>
                     <SideDrawerToggle clicked={props.toggleSideDrawer} />
                 </div>
@@ -20,7 +20,7 @@ export default function LeftSideDrawer(props){
                     <Logo height="40px"/>
                 </div>       
             </div>               
-            <nav>
+            <nav className={classes.Section}>
                 <NavigationItems />
             </nav>
         </div>

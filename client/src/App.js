@@ -1,13 +1,16 @@
 import React,{ Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Home from './components/views/home';
-import About from './components/views/about';
-import Register from './components/views/register';
-import Login from './components/views/LoginPage/login';
-import Error from './components/views/error';
+import Home from './containers/home';
+import About from './containers/about';
+import Register from './containers/AuthPages/LoginPage/register';
+import Login from './containers/AuthPages/LoginPage/login';
+import Logout from './containers/AuthPages/LogoutPage/Logout';
+import Error from './containers/error';
 
 import Layout from './hocs/Layout/Layout';
+
+import Auth from './hocs/Auth/auth';
 
 export default class App extends Component{
   render(){
@@ -15,10 +18,11 @@ export default class App extends Component{
       <div className="hello">
         <Layout>
           <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/about" component={About}></Route>
-            <Route path="/register" component={ Register }></Route>
-            <Route path="/login" component={ Login }></Route>
+            <Route exact path="/" component={ Auth(Home,null)}></Route>
+            <Route path="/about" component={ Auth(About, null)}></Route>
+            <Route path="/register" component={ Auth(Register,false) }></Route>
+            <Route path="/login" component={ Auth(Login,false) }></Route>
+            <Route path="/logout" component={ Auth(Logout, true)} />
             <Route component={Error}></Route>
           </Switch>
         </Layout>
