@@ -3,8 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './containers/home';
 import About from './containers/about';
-import Register from './containers/AuthPages/LoginPage/register';
-import Login from './containers/AuthPages/LoginPage/login';
+// import Register from './containers/AuthPages/LoginPage/register';
+import Register from './containers/AuthPages/RegisterPage/Register';
+import Login from './containers/AuthPages/LoginPage/Login';
 import Logout from './containers/AuthPages/LogoutPage/Logout';
 import Error from './containers/error';
 

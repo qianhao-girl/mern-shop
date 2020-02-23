@@ -9,4 +9,8 @@
 
 .Main{
     padding-top: 66px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

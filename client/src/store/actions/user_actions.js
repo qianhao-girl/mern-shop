@@ -1,10 +1,21 @@
 import axios from 'axios';
 
 import {
+    REGISTER_USER,
     LOGIN_USER,
     LOGOUT_USER,
     AUTHEN_USER,
 } from './types';
+
+export function registerUser(dataToSubmit){
+    const request = axios.post('/api/users/register', dataToSubmit)
+        .then(response => {return response.data})
+        .catch(err =>{return err;});
+    return{
+        type:REGISTER_USER,
+        payload: request,
+    }
+}
 
 export function loginUser(dataToSubmit){
     const request = axios.post('/api/users/login',dataToSubmit)
