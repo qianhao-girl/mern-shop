@@ -154,13 +154,13 @@ class Register extends Component {
         if(!isFormInvalid){
             this.props.onRegisterDispatch(this.state.controls.email.value, this.state.controls.password.value)
             .then(action =>{
-                console.log("success: ",action.payload.successs)
+                console.log("onRegisterDispatch ",action.payload.successs)
                 return action.payload.success;
             }).then( res => {
                 if(res){
                     this.props.onAutoLoginDispatch(this.state.controls.email.value, this.state.controls.password.value)
                     .then(action =>{
-                        console.log("loginSuccess: ",action.payload.loginSuccess);
+                        console.log("onRegisterDispatch ", action.payload.loginSuccess);
                         if(action.payload.loginSuccess) this.props.history.push('/');
                     });
                 }

@@ -1,17 +1,19 @@
 .multiPageMenuRender{
+    display: none;
+
     z-index: 1000; 
     position: fixed; 
-    right: 1rem;
-    margin-top: 1rem;
-    display: none;
+    right: 2rem;
+    margin-top: 66px;
     width: 300px;
+    padding: 2rem;
     border: solid 1px gray;
     color: yellow;
 }
 
 .Showing{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items:center;
 }

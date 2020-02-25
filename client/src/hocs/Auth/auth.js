@@ -6,26 +6,29 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function(PageComponent, accessPermission){
 
     function Auth(props){
+        // console.log("hoc Auth.props", props);
         let user = useSelector(state => state.user);
         const dispatch = useDispatch();
 
         useEffect(()=>{
+        
             dispatch(auth()).then(response =>{
+                // console.log("payload",response.payload);
                 if(!response.payload.isAuth){
                     if(accessPermission){
-                        console.log("push to home 1");
+                        // console.log("push to home 1 in hoc auth");
                         props.history.push("/");
                     }
                 }else{
                     if(accessPermission === false){
-                        console.log("push to home 2");
+                        // console.log("push to home 2  in hoc auth");
                         props.history.push('/');
                     }
                 }
             });   
         }, []);
 
-        return <PageComponent {...props} user={user} /> 
+        return <PageComponent {...props} /> 
     }
     return withRouter(Auth);
 }

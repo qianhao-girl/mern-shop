@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classes from './ToolDropdowns.module.css'
 
 export default function ToolDropdowns(props) {
+    // console.log("ToolDropdowns.props: ",props);
     let show = props.show ? classes.Showing: '';
 
     return (

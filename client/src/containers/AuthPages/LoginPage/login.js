@@ -20,16 +20,19 @@ class Login extends Component{
     }
 
     submitForm = event =>{
+        // console.log("reaady to submit form");
         event.preventDefault();
         let dataToSubmit = {
             email: this.state.email,
             password: this.state.password
         };
         if(this.isFormValid(this.state)){
+            console.log("this.setState({ errors: []});")
             this.setState({ errors: []});
             this.props.dispatch(loginUser(dataToSubmit))
               .then(response => {
                   if(response.payload.loginSuccess){
+                    console.log("push back to homePage by LoginPage");
                       this.props.history.push('/');
                   }else{
                       this.setState({ 
@@ -63,7 +66,7 @@ class Login extends Component{
             <div className={classes.formContainer}>
                 <div className="form-center">
                     <h1>Login</h1>
-                    <form className="login-form">
+                    <form className="login-form" onSubmit={this.submitForm}>
                         <div className="form-group">
                             <label htmlFor="email">your email(required)</label>
                             <input 

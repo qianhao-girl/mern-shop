@@ -4,6 +4,7 @@ const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
 
 router.get("/auth", auth ,(req, res) =>{
+    
     res.status(200).json({
         _id: req._id,
         isAuth: true,
@@ -14,7 +15,7 @@ router.get("/auth", auth ,(req, res) =>{
 });
 
 router.post('/register',(req, res) => {
-
+    console.log("starting register in server");
     const user = new User(req.body);
     user.save((err, doc)=>{
         if(err) return res.json({success: false,err});
@@ -26,6 +27,7 @@ router.post('/register',(req, res) => {
 })
 
 router.post('/login',(req,res) => {
+    console.log("starting login in server");
     //find the email in the database
     User.findOne({ email: req.body.email },(err,user) =>{
         if(!user){
@@ -54,9 +56,10 @@ router.post('/login',(req,res) => {
 });
 
 router.get('/logout', auth, (req,res) => {
-    User.findOneAndUpdate({_id: req.user._id, token:""},(err,doc) => {
+    console.log("starting logout in server");
+    User.findOneAndUpdate({_id: req.user._id},{token: ""},(err,doc) => {
         if(err) return res.json({success: false, err});
-        return res.status(200).send({
+        return res.clearCookie('_auth').status(200).send({
             success: true
         });
     });

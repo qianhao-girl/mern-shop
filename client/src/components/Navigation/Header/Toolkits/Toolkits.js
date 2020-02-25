@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { shallowEqual ,useSelector } from 'react-redux';
 import { FaRegUser, FaRegBell, FaSearch} from 'react-icons/fa';
 
 import ToolDrapdowns from './ToolDropdowns/ToolDropdowns';
@@ -9,23 +9,24 @@ import ToolDrapdowns from './ToolDropdowns/ToolDropdowns';
 import classes from './Toolkits.module.css';
 
 function Tookits(props){
+    // console.log("Tookits.props: ",props);
     const icon_size = 24;
-    let user = useSelector(state => state.user);
-    let isAuth = (user && user.isAuth)? user.isAuth: true;
-
+    let islogedIn = useSelector(state => !state.user.UserData? false: state.user.UserData.isAuth, shallowEqual);
+    // console.log("isLogedin",islogedIn);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [isLogedin, setisLogedin] = useState(isAuth);
-    
-    const itemClickHandle = (event) => {
+    // const [isLogedin, setisLogedin] = useState(logedIn);
+    // console.log("isLogedin",isLogedin);
+    const menuItemClickHandle = (event) => {
         setShowDropdown(!showDropdown);
     }
-
+   
     const logoutHandler = (event) => {
-        setShowDropdown(false);
-        setisLogedin(false);
+        console.log("inside logoutHandle");
         axios.get("/api/users/logout").then(response => {
             if(response.status === 200){
-                setisLogedin(false);
+                setShowDropdown(false);
+                // setisLogedin(false);
+                // console.log("back to home page in action in logoutHandler");
                 props.history.push('/');
             }
         })
@@ -34,15 +35,15 @@ function Tookits(props){
     return (
         <div className={classes.Toolkits}>
             <div className={classes.Tool}>
-                <FaSearch size={icon_size}/>
+                <FaSearch size={icon_size} onClick={menuItemClickHandle}/>
             </div>
             <div className={classes.Tool}>
-                <FaRegBell size={icon_size}/>
+                <FaRegBell size={icon_size} onClick={menuItemClickHandle}/>
             </div>
-            { isLogedin? 
+            { islogedIn? 
                 (
                     <div className={classes.Tool}>
-                        <FaRegUser size={icon_size} onClick={itemClickHandle}/>
+                        <FaRegUser size={icon_size} onClick={menuItemClickHandle}/>
                     </div>
                 )
                 : (

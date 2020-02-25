@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './containers/home';
 import About from './containers/about';
-// import Register from './containers/AuthPages/LoginPage/register';
 import Register from './containers/AuthPages/RegisterPage/Register';
 import Login from './containers/AuthPages/LoginPage/Login';
 import Logout from './containers/AuthPages/LogoutPage/Logout';
@@ -21,8 +20,8 @@ export default class App extends Component{
           <Switch>
             <Route exact path="/" component={ Auth(Home,null)}></Route>
             <Route path="/about" component={ Auth(About, null)}></Route>
-            <Route path="/register" component={ Auth(Register,false) }></Route>
-            <Route path="/login" component={ Auth(Login,false) }></Route>
+            <Route path="/register" component={ Auth(Register, false) }></Route>
+            <Route path="/login" component={ Auth(Login, false) }></Route>
             <Route path="/logout" component={ Auth(Logout, true)} />
             <Route component={Error}></Route>
           </Switch>

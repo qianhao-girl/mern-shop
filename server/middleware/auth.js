@@ -1,6 +1,7 @@
 const { User } = require('../models/User');
 
 let auth = (req, res, next) => {
+    // console.log("starting auth middleware in server");
     let token = req.cookies._auth;
     
     User.findByToken(token, (err,user) => {
@@ -14,7 +15,6 @@ let auth = (req, res, next) => {
         //this req. serve as a middleman to pass info to the next 
         req.token = token;
         req.user = user;
-        console.log(user);
         next();
     });
 
