@@ -1,7 +1,9 @@
 .FormContainer{
-    --font-size: 20px;
+    --font-size: 18px;
     box-sizing: border-box;
-    padding: 4rem;
+    max-width: 95vw;
+    padding: 1.5rem;
+    margin: auto;
     border: 1px solid black;
     box-shadow: 2px grey;
 }

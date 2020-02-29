@@ -1,13 +1,15 @@
 const router = require('express').Router();
-const { User } = require("../models/User");
+const { User } = require("../models/user");
 
 const { auth } = require("../middleware/auth");
+const userController = require("../controllers/user");
 
 router.get("/auth", auth ,(req, res) =>{
     
     res.status(200).json({
-        _id: req._id,
+        _id: req.user._id,
         isAuth: true,
+        isAdmin: req.user.role === 0 ? false : true,
         email: req.user.email,
         lastname: req.user.lastname,
         role: req.user.role
@@ -64,6 +66,10 @@ router.get('/logout', auth, (req,res) => {
         });
     });
 });
+
+router.post("/reset", userController.postResetPassword);
+router.get("/reset/:token", userController.getNewPassword);
+router.post("/new-password", userController.postNewPassword);
 
 
 module.exports = router;

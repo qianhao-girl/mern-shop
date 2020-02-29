@@ -1,15 +1,18 @@
 .NavigationItems {
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: auto;
+    padding-inline-start: 0px;
     list-style: none;
     display: flex;
-    flex-flow: column;
+    /* flex-flow: column; */
+    justify-content: space-between;
     align-items: center;
+    justify-items: center;
     height: 100%;
 }
 
-@media (min-width: 500px) {
+/* @media (min-width: 500px) {
     .NavigationItems {
         flex-flow: row;
     }
-}
+} */

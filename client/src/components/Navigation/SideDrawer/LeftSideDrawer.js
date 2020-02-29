@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './LeftSideDrawer.module.css';
 import SideDrawerToggle from './SideDrawerToggle/SideDrawerToggle';
-import Logo from  '../../Logo/Logo';
+import Logo from  '../../utils/Logo/Logo';
 import NavigationItems from "../NavigationItems/NavigationItems"
 
 export default function LeftSideDrawer(props){

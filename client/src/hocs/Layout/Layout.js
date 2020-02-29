@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import Header from '../../components/Navigation/Header/Header';
-import Modal from '../../components/UI/Modal/Modal';
+import Modal from '../../components/utils/Modal/Modal';
 import LeftSideDrawer from '../../components/Navigation/SideDrawer/LeftSideDrawer';
 import classes from './Layout.module.css';
 

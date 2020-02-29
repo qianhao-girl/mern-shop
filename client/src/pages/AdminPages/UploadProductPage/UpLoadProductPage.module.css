@@ -1,0 +1,54 @@
+.FormContainer{
+    display: block;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 2rem;
+}
+.FormContainer h1{
+    margin: auto;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.Form{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.FormControl{
+    width: 60vw;
+    max-width: 500px;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.Label{
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.Input{
+    font-size: 18px;
+}
+
+.TextArea{
+    box-sizing: border-box;
+    height: 120px;
+    border: solid 1px slategray;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.Button{
+    box-sizing: border-box;
+    margin:auto;
+    margin-left: 0;
+    padding: 4px;
+    font-size: 16px;
+}

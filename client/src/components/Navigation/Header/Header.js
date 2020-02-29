@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, connect } from 'react-redux';
 import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
-import Logo from '../../Logo/Logo';
+import Logo from '../../utils/Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import ToolKits from './Toolkits/Toolkits';
 import classes from './Header.module.css';

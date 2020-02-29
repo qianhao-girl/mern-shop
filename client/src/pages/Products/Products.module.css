@@ -1,0 +1,20 @@
+.Showcase{
+    box-sizing: border-box;
+    width: 80vw;
+    height: 60vh;
+    margin: auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat('autofit', minmax(300px, 1fr))
+}
+
+.Cubicle{
+    box-sizing: border-box;
+    max-height: 500px;
+    border: solid 1px gray;
+    border-radius: 8px;
+}
+
+.Cubicle img{
+    width: 100%;
+}

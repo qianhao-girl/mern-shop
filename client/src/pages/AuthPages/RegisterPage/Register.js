@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { registerUser, loginUser} from '../../../store/actions/index';
-import Input from '../../../components/UI/Form/Input/Input';
+import Input from '../../../components/utils/Form/Input/Input';
 import classes from './Register.module.css';
 
 
@@ -49,7 +48,7 @@ class Register extends Component {
                 value: '',
                 validation: {
                     required: true,
-                    comformEmail: true,
+                    comformPassword: true,
                 },
                 valid: false,
                 touched: false,
@@ -58,6 +57,7 @@ class Register extends Component {
 
         },
         formValid: false,
+        signUpAsCustomer: true
     }
 
     checkValidity (controlName, value, rules, errors ) {
@@ -97,7 +97,7 @@ class Register extends Component {
             if(!meet) errors.push(`emaill address is invalid!`);
         }
 
-        if( rules.comformEmail ){
+        if( rules.comformPassword ){
             // error due to: right now this.state.controls[controlName].value  isn't the newest value,
             //               has not be updated through setState(...)
             //error: let meet = this.state.controls['password'].value
@@ -178,6 +178,10 @@ class Register extends Component {
         }
     }
 
+    switchRoleHandler = () => {
+        this.setState({signUpAsCustomer: !this.state.signUpAsCustomer});
+    }
+
     render(){
         const elemArray = [];
         for(let i in this.state.controls){
@@ -202,10 +206,14 @@ class Register extends Component {
         ))
         return (
             <div className={classes.FormContainer}>
+                <h1>Sign Up As a Role 0</h1>
                 <form onSubmit={this.submitHandler}>
                    {form}
                    <button>Submit</button>
                 </form>
+                <p onClick={this.switchRoleHandler} style={{ padding: "4px", border: "1px solid red"}}>
+                    {this.state.signUpAsCustomer? "Sign up as a shop owner" : "Sign up as a customer"}
+                </p>
             </div>
         )
     }
@@ -227,6 +235,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default withRouter(connect(null,mapDispatchToProps)(Register));
+export default connect(null,mapDispatchToProps)(Register);
 // export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Register));
 

@@ -16,10 +16,6 @@ const UserSchema = mongoose.Schema({
         type:String,
         minlength: 5
     },
-    lastname: {
-        type: String,
-        maxlength: 50,
-    },
     role:{
         type: Number,
         default: 0,
@@ -27,11 +23,21 @@ const UserSchema = mongoose.Schema({
     token:{
         type: String
     },
-    tokenExp:{
-        type:Number,
-    },
-
-});
+    resetToken: String,
+    resetTokenExpiration: Date,
+    cart: {
+        items: [
+          {
+            productId: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Product',
+              required: true
+            },
+            quantity: { type: Number, required: true }
+          }
+        ]
+      }
+},{ timestamps: true });
 
 UserSchema.pre('save', function( next ){
     var user = this;
@@ -76,7 +82,47 @@ UserSchema.statics.findByToken = function (token, callback){
 }
 
 
-const User = mongoose.model('User', UserSchema);
+UserSchema.methods.addToCart = function(product, num=1){
+    const productIndex = this.cart.items.findIndex(item => item.productId.toString() === product._id.toString());
+    const updatedCartItems = [...this.cart.items];
+    let newQuantity = 1;
 
+    if(productIndex > -1){
+        newQuantity = this.cart.items[productIndex].quantity + num;
+        updatedCartItems[productIndex].quantity = newQuantity;
+
+    }else{
+        newQuantity = num;
+        updatedCartItems.push({ productId: product._id, quantity: newQuantity});
+    }
+
+    const updatedCart = { items: updatedCartItems };
+    this.cart = updatedCart;
+    return this.save();
+
+};
+
+UserSchema.methods.removeFromCart = function(productId,num=1){
+    const productIndex = this.cart.items.findIndex(item => item.productId.toString() === productId.toString());
+    const updatedCartItems = [...this.cart.items];
+    newQuantity = 1;
+    if(productIndex > -1){
+        if(updatedCartItems[productIndex].quantity <= num){
+            updatedCartItems.splice(productIndex, 1);
+        }else{
+            newQuantity = this.cart.items[productIndex].quantity - num;
+            updatedCartItems[productIndex].quantity = newQuantity;
+        }
+        this.cart = {items: updatedCartItems}
+    }
+    return this.save();
+};
+
+UserSchema.methods.clearCart = function (){
+    this.cart = { items:[] };
+    return this.save();
+}
+
+const User = mongoose.model('User', UserSchema);
 module.exports = { User }
 
