@@ -42,6 +42,7 @@ export default function UpLoadProductPage(props) {
             description: DescriptionValue,
             images: Images,
             stock: InventoryValue,
+            country: CountryList[CountryValue],
         }
         axios.post('/api/admin/add-product', dataToSubmit)
         .then(response => {

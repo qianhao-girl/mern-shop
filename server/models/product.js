@@ -38,8 +38,10 @@ const productSchema = mongoose.Schema({
     views:{
         type: Number,
         default: 0
+    },
+    country:{
+        type: String,
     }
-
     
 },{ timestamps: true })
 

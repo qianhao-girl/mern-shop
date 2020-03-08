@@ -1,8 +1,9 @@
 import React from 'react';
+import './Button.css'
 
 export default function Button({children}){
     return (
-        <button className="primary-button">
+        <button className="btn-primary">
             {children}
         </button>
     )    

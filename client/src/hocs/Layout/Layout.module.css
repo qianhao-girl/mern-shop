@@ -8,9 +8,10 @@
 }
 
 .Main{
-    padding-top: 66px;
+    /* padding-top: 66px; */
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }

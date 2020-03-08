@@ -1,10 +1,12 @@
-import React,{ Component } from 'react';
+import React from 'react';
+import StyledHero from '../components/utils/StyledHero';
 
-export default class Home extends Component{
-
-    render(){
-        return (
-            <h1>this is our home page</h1>
-        );
-    }
+export default function home() {
+    return (
+        <div>
+            <StyledHero>
+                <p style={{diplay: "inline-block", textTransform: "capitalize"}}>this is home page</p>
+            </StyledHero>
+        </div>
+    )
 }

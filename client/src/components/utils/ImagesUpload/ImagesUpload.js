@@ -14,7 +14,7 @@ function FileUpload(props) {
     const onDrop = (acceptedFiles) => {
         let formData = new FormData();
         const config = { header: {'content-type': 'multipart/form-data'}};
-        console.log('acceptedFiles[0]: ',acceptedFiles[0]);
+       
         formData.append("image",acceptedFiles[0]);
         axios.post('/api/products/uploadImage', formData, config)
             .then(response => {
@@ -60,7 +60,10 @@ function FileUpload(props) {
                 {
                     imageUrls.map((image, index) => (
                         <div key={index} onClick={() => onDelete(image)}>
-                            <img src={`http://localhost:5000/${image}`} alt={`productImg-${index}`}></img>
+                            <img src={`http://localhost:5000/${image}`}
+                                alt={`productImg-${index}`}
+                                style={{width: "100%", height:"auto"}}
+                            />
                         </div>
                     ))
                 }

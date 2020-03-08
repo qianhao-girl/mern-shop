@@ -12,7 +12,7 @@ function NavigationItems(props){
 
     return (
         <ul className={classes.NavigationItems}>   
-            <NavigationItem link="/" active>Home</NavigationItem>        
+            <NavigationItem link="/" exact>Home</NavigationItem>        
             <NavigationItem link='/products'>Products</NavigationItem>  
             <NavigationItem link='/about'>Shops</NavigationItem>
             {props.isAuth? 
