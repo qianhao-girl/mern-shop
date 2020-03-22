@@ -17,7 +17,7 @@ function NavigationItems(props){
             <NavigationItem link='/about'>Shops</NavigationItem>
             {props.isAuth? 
                 (<>
-                    <NavigationItem link='/../carts'>Carts</NavigationItem>
+                    <NavigationItem link='/cart'>Carts</NavigationItem>
                     <NavigationItem link='/../orders'>Orders</NavigationItem>
                 </>)
                 : null

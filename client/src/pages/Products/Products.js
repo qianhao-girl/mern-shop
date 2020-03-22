@@ -73,7 +73,7 @@ function Products(props) {
 
 
     const getProducts = (args, concat=true) => {
-        axios.post('/api/products/getProducts',args).then(response => {
+        axios.post('/api/product/getProducts',args).then(response => {
             if(response.data.success){
                 concat? setProducts([...Products,...response.data.products]) : setProducts(response.data.products);
                 setSize(response.data.amount);
@@ -101,8 +101,10 @@ function Products(props) {
                     {Products.map((product,index) => {
                         // console.log("product : ",product);
                         return <Card key={index}
+                            detail={product}
+                            link={`/product/${product._id}`}
                             image={`http://localhost:5000/${product.images[0]}`}
-                            soldout={product.stock > 0}
+                            soldout={product.stock <= 0}
                             price={product.price}
                             description={product.description}/>
                     })}

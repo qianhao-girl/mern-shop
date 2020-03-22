@@ -13,13 +13,13 @@ let multerCustomStorage = multer.diskStorage({
 });
 let multerUpload = multer({ storage: multerCustomStorage}).single('image');
 exports.postUploadImage = (req, res) => {
-    console.log("req.body:",req.body);
+    // console.log("req.body:",req.body);
     multerUpload(req, res, err => {
         if(err){
-            console.log(err);
+            // console.log(err);
             return res.status(400).json({success: false, error: err}) ;
         } else{
-            console.log("req.file: ", req.file);
+            // console.log("req.file: ", req.file);
             return res.status(200).json({success: true,  image: req.file.path, fileName: req.file.filename })
         }
     })
@@ -49,7 +49,7 @@ exports.getProducts = (req, res) => {
             }
         }
     }
-    console.log('findArgs: ', findArgs);
+    // console.log('findArgs: ', findArgs);
 
     if(req.body.searchTerm){
         console.log(searchTerm);
@@ -61,7 +61,7 @@ exports.getProducts = (req, res) => {
             .limit(limit)
             .exec((err, products) => {
                 if(err) return res.status(400).json({ success: false, err});
-                console.log(products);
+                // console.log(products);
                 res.status(200).json({ success: true, products: products, amount: products.length});
             })
     }else{
@@ -72,12 +72,36 @@ exports.getProducts = (req, res) => {
             .limit(limit)
             .exec((err, products) => {
                 if(err) return res.status(400).json({ success: false, err});
-                console.log(products);
+                // console.log(products);
                 res.status(200).json({ success: true, products: products, amount: products.length});
             })
     }
 
 }
-
-
 //{ end of getProducts }
+
+//begin 
+exports.getProductById = (req, res, next) =>{
+    let productIds = req.query.id;
+    let type = req.query.type;
+    // console.log("productBys: ",req.query.id);
+    // let pattern = /.(?:,|\|)./;
+	// console.log("dddddddddd: ",pattern.test(productIds));
+
+    if(type==='array'){
+        let ids = req.query.id.split(',');
+        productIds = ids.map(id => id);
+    }
+    //1. The $in operator selects the documents where the value of 
+    //a field equals any value in the specified array. 
+    //2. If the field holds an array, then the $in operator selects the
+    // documents whose field holds an array that contains
+    // at least one element that matches a value in the specified array
+    Product.find({'_id': { $in: productIds}})
+    .populate('writer')
+    .exec((err,products) => {
+        if(err) return res.status(400).send(err);
+        // console.log("productById",products);
+        return res.status(200).send(products);
+    })//products: Array
+}

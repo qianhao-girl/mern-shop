@@ -5,11 +5,15 @@ import {
     LOGIN_USER,
     LOGOUT_USER,
     AUTHEN_USER,
+    ADD_TO_CART_USER,
+    REMOVE_FROM_CART,
+    GET_CART_ITEMS_DETAILS_USER,
 } from './types';
+
 
 export function registerUser(dataToSubmit){
     // console.log("hi, i'm in registerUser action creater");
-    const request = axios.post('/api/users/register', dataToSubmit)
+    const request = axios.post('/api/user/register', dataToSubmit)
         .then(response => {return response.data})
         .catch(err =>{return err;});
     return{
@@ -20,7 +24,7 @@ export function registerUser(dataToSubmit){
 
 export function loginUser(dataToSubmit){
     // console.log("hi, i'm in loginUser action creater");
-    const request = axios.post('/api/users/login',dataToSubmit)
+    const request = axios.post('/api/user/login',dataToSubmit)
         .then(response => response.data);
     ;
     return{
@@ -31,7 +35,7 @@ export function loginUser(dataToSubmit){
 
 export function logoutUser(){
     // console.log("hi, i'm in logoutUser action creater");
-    const request = axios.get(`/api/users/logout`)
+    const request = axios.get(`/api/user/logout`)
     .then(response => response.data);
     return {
         type: LOGOUT_USER,
@@ -42,11 +46,64 @@ export function logoutUser(){
 
 export function auth(){
     // console.log("hi, i'm in auth action creater");
-    const request = axios.get('/api/users/auth').then(response => response.data);
+    const request = axios.get('/api/user/auth').then(response => {
+        console.log("auth's response: ",response)
+        return response.data
+    });
 
     return {
         type:AUTHEN_USER,
         payload: request
     }
 }
+
+
+export function addToCart(_id,addNum=1){
+    const request = axios.get(`/api/user/addToCart?productId=${_id}&amount=${addNum}`).then(
+        response => response.data
+    );
+
+    return{
+        type: ADD_TO_CART_USER,
+        payload: request,
+    }
+
+}
+
+export function removeFromCart(productId){
+    const request = axios.get(`/api/user/removeFromCart?id=${productId}`).then(
+        response => response.data
+    );
+
+    return {
+        action: REMOVE_FROM_CART,
+        payload: request,
+    }
+}
+
+
+export function getCartItemsDetails(productIds, userCartItems){
+    const request = axios.get(`/api/product/product_by_id?id=${productIds}&type=array`).then(
+        response => {
+            userCartItems.forEach(cartItem => {
+                response.data.forEach((product, index) => {
+                    if(product._id === cartItem.productId){
+                        response.data[index].quantity = cartItem.quantity;
+                        response.data[index].checked = cartItem.checked;  
+                    }
+                })
+            })
+            return response.data;            
+        }
+    )
+    return {
+        type: GET_CART_ITEMS_DETAILS_USER,
+        payload: request,
+    }
+}
+
+
+
+
+
 

@@ -12,12 +12,14 @@ router.get("/auth", auth ,(req, res) =>{
         isAdmin: req.user.role === 0 ? false : true,
         email: req.user.email,
         lastname: req.user.lastname,
-        role: req.user.role
+        role: req.user.role,
+        cart: req.user.cart,
+        history: req.user.history,
     });
 });
 
 router.post('/register',(req, res) => {
-    console.log("starting register in server");
+    // console.log("starting register in server");
     const user = new User(req.body);
     user.save((err, doc)=>{
         if(err) return res.json({success: false,err});
@@ -29,7 +31,7 @@ router.post('/register',(req, res) => {
 })
 
 router.post('/login',(req,res) => {
-    console.log("starting login in server");
+    // console.log("starting login in server");
     //find the email in the database
     User.findOne({ email: req.body.email },(err,user) =>{
         if(!user){
@@ -47,7 +49,7 @@ router.post('/login',(req,res) => {
     //user loged in, generate the Token
                 user.generateToken((err, user) => {
                     if(err) return res.status(400).send(err);
-                    console.log(" inside generateToken");
+                    // console.log(" inside generateToken");
                     res.cookie('_auth', user.token)
                     .status(200)
                     .json({loginSuccess: true});
@@ -58,7 +60,7 @@ router.post('/login',(req,res) => {
 });
 
 router.get('/logout', auth, (req,res) => {
-    console.log("starting logout in server");
+    // console.log("starting logout in server");
     User.findOneAndUpdate({_id: req.user._id},{token: ""},(err,doc) => {
         if(err) return res.json({success: false, err});
         return res.clearCookie('_auth').status(200).send({
@@ -70,6 +72,10 @@ router.get('/logout', auth, (req,res) => {
 router.post("/reset", userController.postResetPassword);
 router.get("/reset/:token", userController.getNewPassword);
 router.post("/new-password", userController.postNewPassword);
+
+
+router.get("/addToCart", auth, userController.addToCart);
+router.get("/removeFromCart", auth, userController.removeFromCart);
 
 
 module.exports = router;

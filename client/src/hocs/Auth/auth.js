@@ -1,20 +1,20 @@
 import React,{ useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { auth } from "../../store/actions/user_actions";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function(PageComponent, accessPermission, isAdminRoute = null){
 
     function Auth(props){
         // console.log("hoc Auth.props", props);
-        let user = useSelector(state => state.user);
         const dispatch = useDispatch();
 
         useEffect(()=>{
-        
-            dispatch(auth()).then(response =>{
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function#Description
+            dispatch(auth()).then(async response =>{
                 // console.log("payload",response.payload);
-                if(!response.payload.isAuth){
+                let isAuth = await response.payload.isAuth;
+                if(!isAuth){
                     if(accessPermission){
                         // console.log("push to home 1 in hoc auth");
                         props.history.push("/login");

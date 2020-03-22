@@ -48,7 +48,7 @@ class NewPasswordPage extends Component {
             tokenValid: null,
         }
         
-        axios.get(`/api/users/reset/${props.match.params.token}`).then(response => {
+        axios.get(`/api/user/reset/${props.match.params.token}`).then(response => {
             console.log(" response", response);
             return response.data.success  
         }).then(result => this.setState({ tokenValid: result}))
@@ -121,7 +121,7 @@ class NewPasswordPage extends Component {
         let isFormInvalid = Object.entries(this.state.controls).map(item => {return item[1].valid}).some((valid) => !valid);
         if(!isFormInvalid){
             console.log("props: in submit,", this.props);
-            axios.post('/api/users/new-password',{ resetToken: this.props.match.params.token, 
+            axios.post('/api/user/new-password',{ resetToken: this.props.match.params.token, 
                 newPassword: this.state.controls.password.value })
         };
     }

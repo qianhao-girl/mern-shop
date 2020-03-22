@@ -22,7 +22,7 @@ exports.postAddProduct = (req, res, next) => {
 
 
 exports.getProducts = (req, res, next) => {
-    console.log("inside getProduct controller");
+    // console.log("inside getProduct controller");
     // Product.find({ userId: req.user._id})
     // .then(products => {
     //     console.log("admin-Products: ", products);

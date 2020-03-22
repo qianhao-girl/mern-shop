@@ -34,9 +34,9 @@ app.get("/",(req,res) => {
     res.send("hello world!");
 });
 
-app.use('/api/users', require('./routes/users'));
-app.use('/api/products', require('./Routes/products'));
-app.use('/api/admin',require('./Routes/admin'));
+app.use('/api/user', require('./routes/user'));
+app.use('/api/product', require('./routes/product'));
+app.use('/api/admin',require('./routes/admin'));
 
 // io.on("connection",(socket) =>{
 //     console.log("we have a new connection");

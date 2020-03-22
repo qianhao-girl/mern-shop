@@ -14,7 +14,7 @@ function ResetPasswordPage() {
     const onSubmit = (event) =>{
         event.preventDefault();
         if(!email) alert("Please enter your email!");
-        axios.post("/api/users/reset", { email: email}).then(response => {
+        axios.post("/api/user/reset", { email: email}).then(response => {
             console.log(response);
         });
         

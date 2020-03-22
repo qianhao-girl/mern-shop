@@ -16,7 +16,7 @@ function FileUpload(props) {
         const config = { header: {'content-type': 'multipart/form-data'}};
        
         formData.append("image",acceptedFiles[0]);
-        axios.post('/api/products/uploadImage', formData, config)
+        axios.post('/api/product/uploadImage', formData, config)
             .then(response => {
                 if(response.data.success){
                     // console.log('image.path',response.data.image)

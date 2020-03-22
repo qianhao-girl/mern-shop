@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, connect } from 'react-redux';
+// import { useSelector, connect } from 'react-redux';
 import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
 import Logo from '../../utils/Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';

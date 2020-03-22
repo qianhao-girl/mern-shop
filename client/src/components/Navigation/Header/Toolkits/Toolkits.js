@@ -20,7 +20,7 @@ function Tookits(props){
    
     const logoutHandler = (event) => {
         // console.log("inside logoutHandle");
-        axios.get("/api/users/logout").then(response => {
+        axios.get("/api/user/logout").then(response => {
             if(response.status === 200){
                 setShowDropdown(false);
                 console.log("logoutHandler",props)

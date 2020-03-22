@@ -2,5 +2,8 @@ export {
  auth,
  loginUser,
  logoutUser,
- registerUser
+ registerUser,
+ addToCart,
+ removeFromCart,
+ getCartItemsDetails
 } from './user_actions'

@@ -13,8 +13,10 @@ import Logout from './pages/AuthPages/LogoutPage/Logout';
 import ResetPasswordPage from './pages/AuthPages/Reset/ResetPasswordPage/ResetPasswordPage';
 import NewPasswordPage from './pages/AuthPages/Reset/NewPasswordPage/NewPasswordPage';
 // import {Register, Login, Logout, ResetPasswordPage, NewPasswordPage  } from './pages/AuthPages/index'
+import CartPage from './pages/CartPage/CartPage';
 import IndividualPage from './pages/IndividualPage/IndividualPage';
 import Products from './pages/Products/Products';
+import SingleProduct from './pages/SingleProductPage/SingleProductPage';
 import UpLoadProductPage from './pages/AdminPages/UploadProductPage/UploadProductPage';
 
 
@@ -32,6 +34,8 @@ export default class App extends Component{
             <Route exact path="/reset/:token"  component={NewPasswordPage} />
             <Route exact path="/product/upload" component={Auth(UpLoadProductPage, true)}></Route>
             <Route exact path="/products" component={Auth(Products,null)} />
+            <Route path='/product/:productId' component={Auth(SingleProduct, null)} />
+            <Route exact path='/cart' component={Auth(CartPage, true)} />
             <Route exact path="/admin/:slug" component={ Auth(IndividualPage, true)}></Route>
             <Route component={ Error }></Route>
           </Switch>

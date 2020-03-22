@@ -33,10 +33,27 @@ const UserSchema = mongoose.Schema({
               ref: 'Product',
               required: true
             },
-            quantity: { type: Number, required: true }
+            quantity: { type: Number, required: true },
+            checked: {
+                type: Boolean,
+                default: true,
+            }
           }
         ]
-      }
+    },
+    history: [
+        {
+          productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product',
+            required: true
+          },
+          date: {
+              type: Date,
+              required: true
+          }
+        }
+    ]
 },{ timestamps: true });
 
 UserSchema.pre('save', function( next ){
