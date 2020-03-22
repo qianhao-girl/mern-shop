@@ -1,2 +1,2 @@
 # mern-boilerplate
-![app-current-state-gif](demos/gifs/developing.gif)
+![app-current-state-gif](developing.gif)
