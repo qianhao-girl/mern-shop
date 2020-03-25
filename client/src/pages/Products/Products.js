@@ -7,6 +7,7 @@ import { price } from './Sections/Data';
 import RadioBox from './Sections/RadioBox/RadioBox';
 import Search from './Sections/Search';
 import Card from '../../components/utils/Card/Card';
+import MiniSidebar from '../../components/Navigation/MiniSidebar/MiniSidebar';
 
 function Products(props) {
 
@@ -89,6 +90,7 @@ function Products(props) {
 
     return (
         <>
+            <MiniSidebar />
             <div>
                 <RadioBox name="price" list={price}  
                     handleFilterChange={filters => handleFilterChange(filters, 'price')}/>
