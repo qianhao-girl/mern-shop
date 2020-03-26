@@ -10,9 +10,9 @@ import './MiniSidebar.css';
 export default function MiniSidebar() {
     const BackTopRef = useRef(null);
    
-    // useEffect(() => {
-    //     window.onscroll = backTopController;
-    // },[]);
+    useEffect(() => {
+        window.onscroll = backTopController;
+    },[]);
 
     
     const backTopController = () => {
