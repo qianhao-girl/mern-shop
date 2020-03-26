@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState, useRef, useEffect } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { AiOutlineMessage, AiOutlineMail } from 'react-icons/ai';
 import { FaRegHeart, FaMobileAlt, FaRocketchat } from 'react-icons/fa';
@@ -8,20 +8,28 @@ import './MiniSidebar.css';
 
 
 export default function MiniSidebar() {
-    // const [Style,setStyle] = useState("");
-    // toggleStyle = () => {
-    //     setStyle("right: -40px; visibility: visible; border-left: 4px;");
-    // }
+    const BackTopRef = useRef(null);
+   
+    // useEffect(() => {
+    //     window.onscroll = backTopController;
+    // },[]);
 
-    // styleToggler = (event) => {
-    //     event.currentTarget.style = "right: -40px; visibility: visible; border-left: 4px;"
-    // }
-
-
-    function Anchor(){
-        return <div id="backtop-anchor"></div>
+    
+    const backTopController = () => {
+        if(document.body.scrollTop > window.innerHeight 
+            || document.documentElement.scrollTop > window.innerHeight){
+            // BackTopRef.current.style.visibility = "visible";
+            BackTopRef.current.style.display = "block";
+        }else{
+            // BackTopRef.current.style.visibility = "hidden";
+            BackTopRef.current.style.display = "none";
+        };
     }
 
+    const backTopClickHandler = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 
     return (
         <div className="aside-mini" >
@@ -87,10 +95,14 @@ export default function MiniSidebar() {
                     </div>
                 </li>            
             </ul> 
-            <div className="aside-backtop">
+            <div className="aside-backtop" ref={BackTopRef} onClick={backTopClickHandler}>
                 <GoTriangleUp className="aside-icon"/>
                 <p>Top</p>
-            </div>   
+            </div>
+            {/*The following code did not work in the html !!!,why???
+             <script type="text/javascript">
+               {`window.onscroll=${backTopController}`};
+            </script>    */}
         </div>
     )
 }
