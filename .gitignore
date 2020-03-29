@@ -1,3 +1,5 @@
+# https://www.atlassian.com/git/tutorials
+
 /node_modules
 /build
 /uploads/images/
@@ -6,3 +8,4 @@ dev.js
 npm-debug.log*
 
 .vscode
+
