@@ -1,4 +1,4 @@
-const { User } = require('../models/user');
+const { User } = require('../database/models/user');
 
 let auth = (req, res, next) => {
     // console.log("starting auth middleware in server");
