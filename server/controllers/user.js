@@ -3,8 +3,8 @@ const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const config = require('../config/key');
-const {User} = require('../models/user');
-const Product = require('../models/product');
+const User = require('../database/models/user');
+const Product = require('../database/models/product');
 
 //{ begin of reset password }
 const transporter = nodemailer.createTransport(
