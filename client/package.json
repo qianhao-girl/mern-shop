@@ -6,8 +6,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "antd": "^4.0.4",
+    "antv": "^0.2.2",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -45,7 +48,9 @@
     ]
   },
   "devDependencies": {
+    "customize-cra": "^0.9.1",
     "http-proxy-middleware": "^0.21.0",
+    "react-app-rewired": "^2.1.5",
     "typescript": "^3.8.3"
   }
 }
