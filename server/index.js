@@ -1,24 +1,14 @@
 const express = require("express");  
-// const http = require('http');
-// const socketio = require('socket.io');
 const path = require("path");
-// const multer = require('multer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const mongoose = require("mongoose");
-const config = require('./config/key')
-mongoose.connect(config.mongoURI,
-    {
-        useNewUrlParser: true, useUnifiedTopology: true,
-        useCreateIndex: true, useFindAndModify: false})
-    .then(()=>console.log("mongodb database connected"))
-    .catch(err=>console.log(err));
-
+const connect = require("./database/db").init();
 const app = express();
-// const httpServer = http.createServer(app);
-// const io = require('./socket').init(httpServer);
+const httpServer = require('http').Server(app);
+const io = require('./socket').init(httpServer);
+const ChatRoom = require('./database/models/chatRoom');
     
 
 
@@ -38,15 +28,18 @@ app.use('/api/user', require('./routes/user'));
 app.use('/api/product', require('./routes/product'));
 app.use('/api/admin',require('./routes/admin'));
 
-// io.on("connection",(socket) =>{
-//     console.log("we have a new connection");
-//     socket.on("join", () =>{
-//         console.log(" joined ");
-//     });
-//     socket.on("disconnect",() => {
-//         io.emit("one User has left");
-//     })
-// })
+
+io.on('connection', socket => {
+    socket.on("chat message", msg => {
+        connect.then(db => {
+
+        })
+
+    });
+})
+
+
+
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
