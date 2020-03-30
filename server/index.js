@@ -27,15 +27,39 @@ app.get("/",(req,res) => {
 app.use('/api/user', require('./routes/user'));
 app.use('/api/product', require('./routes/product'));
 app.use('/api/admin',require('./routes/admin'));
+app.use("/api/chat",require('./routes/chat'));
 
-
+//This client(socket) will receive any events that the client emits from their browser.  
 io.on('connection', socket => {
-    socket.on("chat message", msg => {
+    socket.on("Start A Chat Room", msg => {
         connect.then(db => {
-
+            try{
+                let chatRoom = msg.chatMessage ? new ChatRoom({
+                    message=[{
+                        authorId,
+                        content: msg.chatMessage,
+                        time: msg.submitTime,
+                    }],
+                    roomType: msg.ChatRoomType,
+                    members: [msg.userId, ...msg.counterpartId],
+                })  : new ChatRoom({
+                    roomType: msg.ChatRoomType,
+                    members: [msg.userId, ...msg.counterpartId],
+                })
+                chatRoom.save((err,doc) => {
+                    if(err) return res.status(400).json({ success: false, err: err});
+                    if(doc) return socket.emit("Output Chat Message", doc);
+                })
+            }
+            catch(error){
+                console.error(error);
+            }
         })
-
     });
+
+    socket.on("Input Chat Message", msg => {
+        
+    })
 })
 
 

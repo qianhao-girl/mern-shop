@@ -35,6 +35,7 @@ exports.getProducts = (req, res) => {
     const limit = req.body.limit ? parseInt(req.body.limit): 50;
     
     let findArgs = {};
+    let searchTerm = req.body.searchTerm;
 
     if(req.body.filters){
         for(let key in req.body.filters){
@@ -51,10 +52,10 @@ exports.getProducts = (req, res) => {
     }
     // console.log('findArgs: ', findArgs);
 
-    if(req.body.searchTerm){
+    if(searchTerm){
         console.log(searchTerm);
         Product.find(findArgs)
-            .find({$text: {$search: req.body.searchTerm}})
+            .find({$text: {$search: searchTerm}})
             .populate('writer')
             .sort([[sortBy, order]])
             .skip(skip)

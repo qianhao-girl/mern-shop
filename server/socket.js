@@ -13,3 +13,6 @@ module.exports ={
         }
     }
 }
+// Socket.io provides an easy API for building apps with event-based communication.
+// Behind the scenes it uses !!!long-polling!!! or !!!WebSockets!!!
+// to allow for near-realtime communication between your server and users

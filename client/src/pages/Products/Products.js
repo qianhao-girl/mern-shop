@@ -22,25 +22,16 @@ function Products(props) {
 
     useEffect(() => getProducts({skip: Skip, limit: Limit}), []);
 
-    const onLoadMore = (event) => {
+    const onLoadMore = () => {
         let skip = Skip + Limit;
         let limit = Limit;
         getProducts({ skip, limit}, true);
         setSkip(skip);
     };
 
-    const handleFilterChange = (filters, category) => {
-        const newFilters = {...Filters};
-        newFilters[category] = filters;
-        if(category==='price'){
-            newFilters[category] = handlePriceChange(filters) ;           
-        }
-        showFilterResult();
-        setFilters(newFilters);
-    }
-
-    const showFilterResult = () => {
-        getProducts({ skip: 0, limit: Limit, filters: Filters}, false);
+    
+    const showFilterResult = (filters) => {
+        getProducts({ skip: 0, limit: Limit, filters: filters}, false);
         setSkip(0);  
     }
 
@@ -48,12 +39,22 @@ function Products(props) {
         const data = price;
         let array = [];
         for(let index in data) {
-            if(index === value){
+            if(index === parseInt(value,10)){
                 array = data[index].array
             }
             break;
         }   
         return array;    
+    }
+
+    const handleFilterChange = (filters, category) => {
+        const newFilters = {...Filters};
+        newFilters[category] = filters;
+        if(category==='price'){
+            newFilters[category] = handlePriceChange(filters) ;           
+        }
+        showFilterResult(newFilters);
+        setFilters(newFilters);
     }
 
     
@@ -65,12 +66,9 @@ function Products(props) {
             skip: 0,
             limit: Limit,
             filters: Filters,
-            searchTerms: newSearchTerm
+            searchTerm: newSearchTerm
         },false); 
-    };
-
-    
-
+    }; 
 
 
     const getProducts = (args, concat=true) => {
@@ -85,9 +83,7 @@ function Products(props) {
         });
     }
 
-
-
-
+    
     return (
         <>
             <MiniSidebar />
@@ -97,7 +93,7 @@ function Products(props) {
                 <Search report={ updateSearchTerm }/>
             </div>
             {Products.length === 0 ?
-                <div>No Products found</div>
+                <div>No Products yet</div>
             : 
                 <div className={classes.Showcase}>
                     {Products.map((product,index) => {
