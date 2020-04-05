@@ -2,7 +2,7 @@ const ChatRoom =  require("../database/models/chatRoom");
 
 //use before auth middleware
 //@returns messages sort by message.moment in descending order: 20200301 > 20200204
-export const getChats = (req, res, next) => {
+exports.getChats = (req, res, next) => {
     let user = req.user;
     let roomId = req.query.roomId;
     let userId = req.query.userId;

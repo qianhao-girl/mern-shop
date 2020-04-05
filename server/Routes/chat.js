@@ -1,11 +1,12 @@
 const router = require("express").Router;
+const ChatRoom = require("../database/models/chatRoom");
 const { auth } = require("../middleware/auth");
 const chatController = require("../controllers/chat");
-const ChatRoom = require("../database/models/chatRoom");
+
 
 
 router.get('/getChats', auth, chatController.getChats);
 
 
 
-exports.default = router;
+module.exports = router;

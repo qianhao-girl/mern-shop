@@ -35,7 +35,7 @@ io.on('connection', socket => {
         connect.then(db => {
             try{
                 let chatRoom = msg.chatMessage ? new ChatRoom({
-                    message=[{
+                    messages:[{
                         authorId,
                         content: msg.chatMessage,
                         time: msg.submitTime,
