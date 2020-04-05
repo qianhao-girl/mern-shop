@@ -12,7 +12,10 @@ export default function MiniSidebar() {
    
     useEffect(() => {
         window.onscroll = backTopController;
-    },[]);
+        return function cleanup(){
+            window.onscroll = null;
+        }
+    },[BackTopRef]);
 
     
     const backTopController = () => {
