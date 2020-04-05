@@ -7,6 +7,7 @@ import {
     AUTHEN_USER,
     ADD_TO_CART_USER,
     REMOVE_FROM_CART,
+    REVERSE_CHECK_FROM_CART_USER,
     GET_CART_ITEMS_DETAILS_USER,
 } from './types';
 
@@ -76,7 +77,19 @@ export function removeFromCart(productId){
     );
 
     return {
-        action: REMOVE_FROM_CART,
+        type: REMOVE_FROM_CART,
+        payload: request,
+    }
+}
+
+export function reverseCheckFromCart(productId){
+    let type = Array.isArray(productId)? "array" : "single";    
+    const request = axios.get(`/api/user/reverseCheckFromCart?id=${productId}&type=${type}`).then(
+        response => response.data
+    );
+
+    return {
+        type: REVERSE_CHECK_FROM_CART_USER,
         payload: request,
     }
 }

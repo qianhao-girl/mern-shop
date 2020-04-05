@@ -76,6 +76,7 @@ router.post("/new-password", userController.postNewPassword);
 
 router.get("/addToCart", auth, userController.addToCart);
 router.get("/removeFromCart", auth, userController.removeFromCart);
+router.get("/reverseCheckFromCart",auth, userController.reverseCheckFromCart);
 
 
 module.exports = router;

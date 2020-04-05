@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { addToCart, removeFromCart } from '../../../store/actions/index';
+import { addToCart, removeFromCart, reverseCheckFromCart } from '../../../store/actions/index';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import soldoutImage from '../../../assets/images/soldout.png';
@@ -55,6 +55,11 @@ function UserCartBlock(props) {
     //     );
     // };
 
+    const reverseCheckItem = (productId) => {
+        dispatch(reverseCheckFromCart(productId))
+    }
+    
+
     const IncrementQuantity = (productId) => {
         dispatch(addToCart(productId));
     }
@@ -70,7 +75,7 @@ function UserCartBlock(props) {
                     <div className={classNames("cell", "good-cell")}>
                             <div className="good">
                                 <div className="label">
-                                    <input type="checkbox" className="checkbox" checked={item.checked} />
+                                    <input type="checkbox" className="checkbox" checked={item.checked} onChange={() => reverseCheckItem(item._id)}/>
                                 </div>
                                 <div className="good-info">
                                     <Link to={`/product/${item._id}`} className="img-container">

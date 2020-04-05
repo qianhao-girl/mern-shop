@@ -135,6 +135,24 @@ UserSchema.methods.removeFromCart = function(productId,num=1){
     return this.save();
 };
 
+UserSchema.methods.reverseCheckFromCart = function(productIds){
+    // @parameters productIds:Array[ObjectId]
+    // console.log("this in user model method reverse...: ", this);
+    console.log("productIds: ",productIds);
+    let updatedCartItems = [...this.cart.items];
+    updatedCartItems.forEach((cartItem,index) => {
+        productIds.forEach((productId) => {
+            if(cartItem.productId.toString() === productId){
+                console.log("hasMatched!")
+                updatedCartItems[index].checked = !updatedCartItems[index].checked; 
+            }
+        });        
+    });
+    console.log("updatedCartItems: ",updatedCartItems);
+    this.cart.items = updatedCartItems;
+    return this.save();
+}
+
 UserSchema.methods.clearCart = function (){
     this.cart = { items:[] };
     return this.save();

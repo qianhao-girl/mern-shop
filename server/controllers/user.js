@@ -111,7 +111,8 @@ exports.addToCart = (req, res, next) => {
 	const productId = req.query.productId;
 	const addNum = req.query.amount ? parseInt(req.query.amount) : 1;
 	let user = req.user;
-	
+	//Use $ in the projection document of the find() method or the findOne() method
+	// when you only need one particular array element in selected documents.
 	if(user.cart && user.cart.items && user.cart.items.some(element => element.productId == productId)){
 		User.findOneAndUpdate(
 			{ _id: user._id, "cart.items.productId": productId },
@@ -186,6 +187,27 @@ exports.removeFromCart = (req, res, next) => {
 	// )
 }
 
+exports.reverseCheckFromCart = (req, res, next) => {
+	let productIds = [req.query.id];
+	if(req.query.type==="array"){
+		productIds = req.query.id.split(",");	
+	}
+	User.findOne({_id: req.user._id}, (err,doc) => {
+		if(err) {
+			console.log("err in reverseCheckFromCart: ", err);
+			return res.status(400).json({ success: false, err});
+		}
+		doc.reverseCheckFromCart(productIds).then( userDoc => {
+			if(userDoc){
+				console.log("userDoc in reverseCheckFrom Cart controller: ",userDoc);
+				res.status(200).json({success: true, cart: userDoc.cart});
+			}else{
+				res.status(400).json({ success: false });
+			}
+		})
+	})
+}
+
 exports.decreaseInCart = (req, res, next) => {
 	let productId;//TODO: = req.?.?(productId)
 	User.findOneAndUpdate(
@@ -205,6 +227,7 @@ exports.decreaseInCart = (req, res, next) => {
 		}	
 	)	
 }
+
 
 //get array of products in cart
 exports.getUserCartDetail = (req, res, next) => {
