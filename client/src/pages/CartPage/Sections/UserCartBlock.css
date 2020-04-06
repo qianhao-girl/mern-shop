@@ -1,7 +1,18 @@
 .cart-main{
-    position: relative;
+    /* position: relative; */
+    width: 100vw;
+    padding: auto;
+    background-color: #ededed;
 }
 
+.list-main{
+    margin: 0px 0px 20px;
+}
+
+.cart-list{
+    width: 1190px;
+    margin: auto;
+}
 
 
 .shop-wrapper{
@@ -11,11 +22,47 @@
 
 .list-head{
     height: 60px;
+    padding: 0px 20px;
+    background-color: crimson;
 }
 
 .shop-item{
-    height: 30px;
+    box-sizing: border-box;
+    height: 65px;
+    font-size:12px;
+    padding: 30px 0px 10px 20px;
+    /* background-color: greenyellow; */
 }
+
+.shop-main{
+    background-color: white;
+}
+
+.shop,.shop label{
+    height: 20px;
+    width:500px;
+}
+
+.shop input, .shop div{
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0px;
+    vertical-align: center;
+}
+
+.shop input{
+    width:15px;
+    height: 15px;
+    padding: 0px;
+    border: 1px solid #d7d7d7;
+    border-radius: 100%;
+}
+
+.shop p{
+    padding: 0px;
+    margin: auto;
+}
+
 
 .product-item{
     display: block;
@@ -23,7 +70,7 @@
 
 .cell{
     display: inline-block;
-    float: left;
+    /* float: left; */
 }
 
 .img-container{
@@ -44,13 +91,58 @@
     position:absolute;
 }
 
-.cart-fixed{
-    position: fixed;
-    bottom: 0;
+.cart-total{
+    position: relative;
+    width: 1190px;
+    height: 60px;
+    margin: auto;
+    vertical-align: middle;
+    background-color: white;
 }
 
-.select-check{
-    width: 13px;
-    height: 13px;
-    border-radius: 100%;
+.cart-total label,.cart-total input, .cart-total span, em{
+    box-sizing: border-box;
+    display: inline-block;
 }
+
+.cart-total .delete-selected-item{
+    box-sizing: border-box;
+    width: 200px;
+    height:37px;
+    margin: 0px 20px 0px 0px;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1rem;
+    border: 1px solid black;
+}
+
+.clear-cart{
+    box-sizing: border-box;
+    height: 37px;
+    width: 152px;
+    margin: 0px 83px 0px 0px;
+    border: 1px solid black;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.cart-total-price{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 70px 0px 20px;
+}
+
+.checkout-btn{
+    box-sizing: border-box;
+    height: 100%;
+    width: 130px;
+    background-color: hotpink;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+}
+

@@ -1,17 +1,18 @@
 import React,{ useEffect,useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import axios from 'axios';
 import { getCartItemsDetails,removeFromCart } from '../../store/actions/index';
 import UserCartBlock from './Sections/UserCartBlock';
 
 
 function CartPage(props) {
-    let user = useSelector(state => state.user);
+    let user = useSelector(state => state.user, shallowEqual);
     const dispatch = useDispatch();
-    // const [Total, setTotal] = useState(0);
+    
 
     useEffect(() =>{
-        if(user.UserData && user.UserData.cart.items){
+        console.log("user.UserData changed in useEffect");
+        if(user.UserData && user.UserData.cart && user.UserData.cart.items){
             if(user.UserData.cart.items.length > 0){
                 let productIdsInCart = [];
                 user.UserData.cart.items.forEach(item => {
@@ -51,7 +52,7 @@ function CartPage(props) {
 
 
     return (
-        <div>
+        <div >
             <UserCartBlock products={user.cartDetail}/>            
         </div>
     )
