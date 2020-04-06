@@ -119,15 +119,17 @@ UserSchema.methods.addToCart = function(product, num=1){
 
 };
 
-UserSchema.methods.removeFromCart = function(productId,num=1){
+UserSchema.methods.removeFromCart = function(productId, num=1){
     const productIndex = this.cart.items.findIndex(item => item.productId.toString() === productId.toString());
     const updatedCartItems = [...this.cart.items];
-    newQuantity = 1;
+    let newQuantity;
     if(productIndex > -1){
+// The splice() method changes the contents of an array by removing or replacing existing elements
+// and/or adding new elements in place.
         if(updatedCartItems[productIndex].quantity <= num){
             updatedCartItems.splice(productIndex, 1);
         }else{
-            newQuantity = this.cart.items[productIndex].quantity - num;
+            newQuantity = updatedCartItems[productIndex].quantity - num;
             updatedCartItems[productIndex].quantity = newQuantity;
         }
         this.cart = {items: updatedCartItems}

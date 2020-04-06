@@ -74,9 +74,11 @@ router.get("/reset/:token", userController.getNewPassword);
 router.post("/new-password", userController.postNewPassword);
 
 
-router.get("/addToCart", auth, userController.addToCart);
-router.get("/removeFromCart", auth, userController.removeFromCart);
-router.get("/reverseCheckFromCart",auth, userController.reverseCheckFromCart);
+router.get("/cart/addToCart", auth, userController.addToCart);
+router.get("/cart/removeFromCart", auth, userController.removeFromCart);
+router.get("/cart/deleteItemFromCart", auth, userController.deleteItemFromCart);
+router.get("/cart/setQuantityFromCart", auth, userController.setQuantityFromCart);
+router.get("/cart/reverseCheckFromCart",auth, userController.reverseCheckFromCart);
 
 
 module.exports = router;

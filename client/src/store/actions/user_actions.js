@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { USER_SERVER } from '../../config';
 
 import {
     REGISTER_USER,
@@ -6,15 +7,17 @@ import {
     LOGOUT_USER,
     AUTHEN_USER,
     ADD_TO_CART_USER,
-    REMOVE_FROM_CART,
+    REMOVE_FROM_CART_USER,
     REVERSE_CHECK_FROM_CART_USER,
+    SET_QUANTITY_FROM_CART_USER,
     GET_CART_ITEMS_DETAILS_USER,
+    DELETE_ITEM_FROM_CART_USER,
 } from './types';
 
 
 export function registerUser(dataToSubmit){
     // console.log("hi, i'm in registerUser action creater");
-    const request = axios.post('/api/user/register', dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
         .then(response => {return response.data})
         .catch(err =>{return err;});
     return{
@@ -25,7 +28,7 @@ export function registerUser(dataToSubmit){
 
 export function loginUser(dataToSubmit){
     // console.log("hi, i'm in loginUser action creater");
-    const request = axios.post('/api/user/login',dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
         .then(response => response.data);
     ;
     return{
@@ -36,7 +39,7 @@ export function loginUser(dataToSubmit){
 
 export function logoutUser(){
     // console.log("hi, i'm in logoutUser action creater");
-    const request = axios.get(`/api/user/logout`)
+    const request = axios.get(`${USER_SERVER}/logout`)
     .then(response => response.data);
     return {
         type: LOGOUT_USER,
@@ -47,7 +50,7 @@ export function logoutUser(){
 
 export function auth(){
     // console.log("hi, i'm in auth action creater");
-    const request = axios.get('/api/user/auth').then(response => {
+    const request = axios.get(`${USER_SERVER}/auth`).then(response => {
         console.log("auth's response: ",response)
         return response.data
     });
@@ -59,8 +62,8 @@ export function auth(){
 }
 
 
-export function addToCart(_id,addNum=1){
-    const request = axios.get(`/api/user/addToCart?productId=${_id}&amount=${addNum}`).then(
+export function addToCart(_id, addNum=1){
+    const request = axios.get(`${USER_SERVER}/cart/addToCart?productId=${_id}&amount=${addNum}`).then(
         response => response.data
     );
 
@@ -71,20 +74,46 @@ export function addToCart(_id,addNum=1){
 
 }
 
+
 export function removeFromCart(productId){
-    const request = axios.get(`/api/user/removeFromCart?id=${productId}`).then(
+        
+    const request = axios.get(`${USER_SERVER}/cart/removeFromCart?id=${productId}`).then(
         response => response.data
     );
 
     return {
-        type: REMOVE_FROM_CART,
+        type: REMOVE_FROM_CART_USER,
         payload: request,
     }
 }
 
+export function deleteItemFromCart(productId){
+    let type = Array.isArray(productId)? "array": "single";
+    const request = axios.get(`${USER_SERVER}/cart/deleteItemFromCart?id=${productId}&type=${type}`).then(
+        response => response.data
+    );
+
+    return {
+        type: DELETE_ITEM_FROM_CART_USER,
+        payload: request,
+    }
+}
+
+export function setQuantityFromCart(productId, quantity){
+    const request = axios.get(`${USER_SERVER}/cart/setQuantityFromCart?id=${productId}&amount=${quantity}`).then(
+        response => response.data
+    );
+
+    return {
+        type: SET_QUANTITY_FROM_CART_USER,
+        payload: request,
+    }
+
+}
+
 export function reverseCheckFromCart(productId){
     let type = Array.isArray(productId)? "array" : "single";    
-    const request = axios.get(`/api/user/reverseCheckFromCart?id=${productId}&type=${type}`).then(
+    const request = axios.get(`${USER_SERVER}/cart/reverseCheckFromCart?id=${productId}&type=${type}`).then(
         response => response.data
     );
 

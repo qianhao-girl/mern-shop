@@ -105,8 +105,10 @@ exports.postNewPassword = (req, res, next) => {
 //{ end of reset password }
 
 
-//{begin of add one item to the user cart}
+//{begin of methods deal with cart.item.quantity}
+
 //!!!important: use after auth(req.user)
+//only could add one item to the cart
 exports.addToCart = (req, res, next) => {
 	const productId = req.query.productId;
 	const addNum = req.query.amount ? parseInt(req.query.amount) : 1;
@@ -133,59 +135,110 @@ exports.addToCart = (req, res, next) => {
 				if(err) return res.status(400).json({success: false, err});
 				res.status(200).json({success: true, cart: doc.cart});
 		});
-	}
-	
+	}	
 }
 
-//{end of add one item to the user cart}
-
-
+//complementary to method addToCart
 exports.removeFromCart = (req, res, next) => {
-	// https://docs.mongodb.com/manual/reference/operator/update/pull/#up._S_pull
-	console.log("req.query.id: ", req.query.id);
-	let productIds = req.query.id;
+	let productId = req.query.id;
+	User.findOneAndUpdate(
+		{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$gte: 2} }},
+		{$inc: {"cart.items.$.quantity": -1 }},
+		{ new: true },
+		(_, userDoc) => {
+			if(userDoc) return res.status(200).json({success: true, cart: userDoc.cart});
+			User.findOneAndUpdate(
+				{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$lte: 1} }},
+				{$pull: { "cart.items": {productId: productId} }},
+				{ new: true },
+				(err,doc) => {
+					if(err) return res.staus(400).json({success: false, err}); 
+					res.status(200).json({success: true, cart: doc.cart})
+				})
+		}	
+	)	
+}
 
-	let pattern = /.(?:,|\|)./;
-	if(pattern.test(productIds)){
+//!!!use after auth middleware
+//only could deal with one cartItem a time
+exports.setQuantityFromCart = (req, res, next) => {
+	if(!req.user) {
+		console.log("please use this methods before auth middleware");
+		return res.status(400).json({ success: false,err:"backend does not yet support this request"});
+	}
+	let productId = req.query.productId;
+	let amount = parseInt(req.query.amount);
+	if(amount>0){
+		User.findOneAndUpdate(
+			{_id: req.user._id, "cart.items.productId": productId},
+			{$set: {"cart.items.$.quantity": amount}},
+			{new: true},
+			(err,doc) => {
+				if(err) return res.status(400).json({success: false, err});
+				res.status(200).json({succcess: true, cart: doc.cart});
+			}
+		)		
+	}else{//amount<=0
+		User.findOneAndUpdate(
+			{_id: req.user._id},
+			{$pull: {"cart.items":{ productId:  { $in: productId } } } },
+			{new: true},
+			(err,doc) => {
+				if(err) return res.status(400).json({success:false, err});
+				res.status(200).json({success: true, cart: doc.cart});
+			}
+		)
+	}	
+}
+
+{// exports.removeFromCart = (req, res, next) => {
+	// https://docs.mongodb.com/manual/reference/operator/update/pull/#up._S_pull
+	// console.log("req.query.id: ", req.query.id);
+	// let productIds = req.query.id;
+
+	// let pattern = /.(?:,|\|)./;
+	// if(pattern.test(productIds)){
+	// 	productIds = [];
+	// 	productIds = req.query.id.split(',');//TODO: delimiter should update accordingly(regexp)
+	// };
+	{/*!!!won't work, array pass to query in GET will ignore the bracket
+	if(productIds.startsWith('[') && productIds.endsWith(']')){
 		productIds = [];
 		productIds = req.query.id.split(',');
-	};
+	*/}
 
+	//delete item in cart.items
+// 	User.findOneAndUpdate(
+// 		{_id: req.user._id},
+// 		{ $pull: {'cart.items': {productId: {$in: productIds}} } },
+// 		{new: true},
+// 		(err,doc) => {
+// 			if(err) return res.staus(400).json({success: false, err});
+// 			res.status(200).json({success: true, cart: doc.cart})
+// 		}
+// 	)
+// }
+}
 
-	//!!!won't work, array pass to query in GET will ignore the bracket
-	// if(productIds.startsWith('[') && productIds.endsWith(']')){
-	// 	productIds = [];
-	// 	productIds = req.query.id.split(',');
-	// }
-
+//!!!use before auth middleware, and it could delete lots of cartItems a time
+exports.deleteItemFromCart = (req, res, next) => {
+	let productId = req.query.id;
+	if(req.query.type && req.query.type === "array"){
+		productId = req.query.id.split(",");		
+	}
 	User.findOneAndUpdate(
 		{_id: req.user._id},
-		{ $pull: {'cart.items': {productId: {$in: productIds}} } },
+		{ $pull: {'cart.items': {productId: {$in: productId}} } },
 		{new: true},
 		(err,doc) => {
-			if(err) return res.staus(400).json({success: false, err});
+			if(err) return res.status(400).json({success: false, err});
 			res.status(200).json({success: true, cart: doc.cart})
 		}
 	)
-	
-	// User.findOneAndUpdate(
-	// 	{_id: req.user._id},
-	// 	{ $pull: {'cart.items': {productId: req.query.id} } },
-	// 	{new: true},
-	// 	(err,userDoc) => {
-	// 		if(err) return res.staus(400).json({success: false, err});
-	// 		let productIds = userDoc.cart.items.map(item => {
-	// 			return item.productId
-	// 		})
-	// 		Product.find({_id: {$in: productIds}})
-	// 		.populate('writer')
-	// 		.exec((err,products) => {
-	// 			if(err) return res.staus(400).json({success: false, err});
-	// 			res.status(200).json({ cartProductsDatails: products, cart: userDoc.cart })
-	// 		})
-	// 	}
-	// )
 }
+
+//{end of methods deal with cart.item.quantity}
+
 
 exports.reverseCheckFromCart = (req, res, next) => {
 	let productIds = [req.query.id];
@@ -208,25 +261,6 @@ exports.reverseCheckFromCart = (req, res, next) => {
 	})
 }
 
-exports.decreaseInCart = (req, res, next) => {
-	let productId;//TODO: = req.?.?(productId)
-	User.findOneAndUpdate(
-		{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$gte: 2} }},
-		{$inc: {"cart.items.$.quantity": -1 }},
-		{ new: true },
-		(_, userDoc) => {
-			if(userDoc) return res.status(200).json({success: true, cart: userDoc.cart});
-			User.findOneAndUpdate(
-				{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$lte: 1} }},
-				{$pull: { "cart.items": {productId: productId} }},
-				{ new: true },
-				(err,doc) => {
-					if(err) return res.staus(400).json({success: false, err}); 
-					res.status(200).json({success: true, cart: doc.cart})
-				})
-		}	
-	)	
-}
 
 
 //get array of products in cart
