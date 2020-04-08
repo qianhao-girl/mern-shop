@@ -39,7 +39,6 @@ function UserCartBlock(props) {
                     return accu && currentValue;//in case that the optimization in the blackbox skip groupBy operation
                 },true);
                 if(newProducts.length > 0){
-                    console.log("newProducts: ", newProducts);
                     setProducts(newProducts);
                 }
             }
@@ -76,17 +75,34 @@ function UserCartBlock(props) {
                 return product._id;
             }else return null;
         });
-        console.log("productIds: ",productIds);
-        dispatch(reverseCheckFromCart());
-
+        dispatch(reverseCheckFromCart(productIds));
     }
 
 
     //merchant,price,quantity,price*quantity, delete or move to wishlist
-    const renderCartItemsByShop = () => Products && Products.map(
-        (shop,index) =>
-            <ProductsByShop productsInShop={Products[index]} key={index+100}/>
-    );
+    //const renderCartItemsByShop = () => Products && Products.map(
+        //     (shop,index) =>
+        //         <ProductsByShop productsInShop={Products[index]} key={index+100}/>
+        // );
+    const renderCartItemsByShop = () =>{
+        if(Products){
+            console.log("Products in UserCartBlock: ",Products);
+            return Products.map(
+                (shop,index) => {
+                    let key = Products[index].keys().next().value;
+                    let products = Products[index].get(key);
+                    return  <ProductsByShop 
+                        shopId={key} 
+                        products={products} key={index+100}
+                        />
+                }     
+            );
+        }else{
+            return null;
+        }
+    }
+   
+
     // const renderCartItemsByShop = () => Products && Products.map((shop,index) =>
     //     <div className="shop-wrapper" key={index}>
     //         <div className="shop-item">

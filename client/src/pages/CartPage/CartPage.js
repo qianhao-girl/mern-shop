@@ -6,12 +6,12 @@ import UserCartBlock from './Sections/UserCartBlock';
 
 
 function CartPage(props) {
-    let user = useSelector(state => state.user, shallowEqual);
+    let user = useSelector(state => {console.log("state: ",state); return state.user}, shallowEqual);
     const dispatch = useDispatch();
     
 
     useEffect(() =>{
-        console.log("user.UserData changed in useEffect");
+        console.log("user.UserData changed in useEffect:",user.UserData);
         if(user.UserData && user.UserData.cart && user.UserData.cart.items){
             if(user.UserData.cart.items.length > 0){
                 let productIdsInCart = [];
@@ -53,6 +53,7 @@ function CartPage(props) {
 
     return (
         <div >
+            {console.log("user.cartDetail: ",user.cartDetail? user.cartDetail: "null")}
             <UserCartBlock products={user.cartDetail}/>            
         </div>
     )

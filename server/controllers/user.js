@@ -110,7 +110,7 @@ exports.postNewPassword = (req, res, next) => {
 //!!!important: use after auth(req.user)
 //only could add one item to the cart
 exports.addToCart = (req, res, next) => {
-	const productId = req.query.productId;
+	const productId = req.query.id;
 	const addNum = req.query.amount ? parseInt(req.query.amount) : 1;
 	let user = req.user;
 	//Use $ in the projection document of the find() method or the findOne() method
@@ -142,13 +142,13 @@ exports.addToCart = (req, res, next) => {
 exports.removeFromCart = (req, res, next) => {
 	let productId = req.query.id;
 	User.findOneAndUpdate(
-		{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$gte: 2} }},
+		{_id: req.user._id, 'cart.items':{$elemMatch: { productId: productId, quantity: {$gte: 2} }}},
 		{$inc: {"cart.items.$.quantity": -1 }},
 		{ new: true },
 		(_, userDoc) => {
 			if(userDoc) return res.status(200).json({success: true, cart: userDoc.cart});
 			User.findOneAndUpdate(
-				{_id: req.user._id, 'cart.items':{ productId: productId, quantity: {$lte: 1} }},
+				{_id: req.user._id, 'cart.items':{$elemMatch: { productId: productId, quantity: {$lte: 1} }}},
 				{$pull: { "cart.items": {productId: productId} }},
 				{ new: true },
 				(err,doc) => {
@@ -166,7 +166,7 @@ exports.setQuantityFromCart = (req, res, next) => {
 		console.log("please use this methods before auth middleware");
 		return res.status(400).json({ success: false,err:"backend does not yet support this request"});
 	}
-	let productId = req.query.productId;
+	let productId = req.query.id;
 	let amount = parseInt(req.query.amount);
 	if(amount>0){
 		User.findOneAndUpdate(
@@ -181,7 +181,7 @@ exports.setQuantityFromCart = (req, res, next) => {
 	}else{//amount<=0
 		User.findOneAndUpdate(
 			{_id: req.user._id},
-			{$pull: {"cart.items":{ productId:  { $in: productId } } } },
+			{$pull: { "cart.items":{ productId: productId } } },
 			{new: true},
 			(err,doc) => {
 				if(err) return res.status(400).json({success:false, err});
@@ -241,18 +241,18 @@ exports.deleteItemFromCart = (req, res, next) => {
 
 
 exports.reverseCheckFromCart = (req, res, next) => {
-	let productIds = [req.query.id];
+	let productIds;
 	if(req.query.type==="array"){
+		console.log("req.query.type is array")
 		productIds = req.query.id.split(",");	
+	}else{
+		productIds = [req.query.id];
 	}
+	
 	User.findOne({_id: req.user._id}, (err,doc) => {
-		if(err) {
-			console.log("err in reverseCheckFromCart: ", err);
-			return res.status(400).json({ success: false, err});
-		}
+		if(err) return res.status(400).json({ success: false, err});
 		doc.reverseCheckFromCart(productIds).then( userDoc => {
 			if(userDoc){
-				console.log("userDoc in reverseCheckFrom Cart controller: ",userDoc);
 				res.status(200).json({success: true, cart: userDoc.cart});
 			}else{
 				res.status(400).json({ success: false });

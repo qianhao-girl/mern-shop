@@ -63,7 +63,7 @@ export function auth(){
 
 
 export function addToCart(_id, addNum=1){
-    const request = axios.get(`${USER_SERVER}/cart/addToCart?productId=${_id}&amount=${addNum}`).then(
+    const request = axios.get(`${USER_SERVER}/cart/addToCart?id=${_id}&amount=${addNum}`).then(
         response => response.data
     );
 

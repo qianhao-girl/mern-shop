@@ -2,56 +2,63 @@ import React,{useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { 
-    addToCart, removeFromCart,setQuantityFromCart,
+    addToCart, removeFromCart, setQuantityFromCart,
     deleteItemFromCart, reverseCheckFromCart
 } from '../../../store/actions/index';
 import classNames from 'classnames';
 import soldoutImage from '../../../assets/images/soldout.png';
 
-
-// props.productsInShop: Map{
-//     writerId:[ProductObjectFromReduxStore],
-// }
 function ProductsByShop(props){
     const dispatch = useDispatch();
-    const [Products, setProducts] = useState([]);
-    const [WriterId, setWriterId] = useState('');
+    // const [Products, setProducts] = useState([]);
+    // const [WriterId, setWriterId] = useState('');
     const [SelectAll, setSelectAll] = useState(false);
     
     useEffect(() => {
-        if(props.productsInShop){
-            setWriterId(props.productsInShop.keys().next().value);
-        }
-    },[props.productsInShop]); //setWriterId
-    useEffect(() => {
-        if(WriterId){
-            setProducts(props.productsInShop.get(WriterId));
-        }
-    },[WriterId]); //setProducts
-    useEffect(() => {
-        if(Products){
-            if(Products.every((product) => product.checked)){
+        if(props.products && props.shopId){
+            if(props.products.every((product) => product.checked)){
                 if(SelectAll === false){
+                    console.log("it's about to SetSelectAll to all in a shop");
                     setSelectAll(true);
                 }
             }else{
+                console.log("it's about to SetSelectAll to false in a shop");
                 if(SelectAll === true) setSelectAll(false);
             }
+            
         }
-    },[Products]); //setSelectAll
+    },[props.products, props.shopId]); 
+
+    // useEffect(() => {
+    //     if(WriterId){
+    //         console.log("it's about to SetProducts in one shop");
+    //         setProducts(props.products.get(WriterId));
+    //     }
+    // },[WriterId]); //setProducts
+    // useEffect(() => {
+    //     if(Products){
+    //         if(Products.every((product) => product.checked)){
+    //             if(SelectAll === false){
+    //                 console.log("it's about to SetSelectAll in one shop");
+    //                 setSelectAll(true);
+    //             }
+    //         }else{
+    //             console.log("it's about to SetSelectAll in one shop");
+    //             if(SelectAll === true) setSelectAll(false);
+    //         }
+    //     }
+    // },[Products]); //setSelectAll
 
     const reverseSelectAll = (products,selectAll) => {
-        //SelectAll===true
-        let select = selectAll;
         let productIds = [];
         if(products){
             products.forEach((product) => {
-                if(product.checked === select){
-                    productIds.push(product.productId);
+                if(product.checked == selectAll){
+                    productIds.push(product._id);
                 }
             });
         }
-        if(productIds && productIds.length > 0){
+        if(productIds.length > 0){
             dispatch(reverseCheckFromCart(productIds))
         }
     }
@@ -79,14 +86,16 @@ function ProductsByShop(props){
     //@parameter Products: [ProductObjectFromReduxStore] 
     const renderItemsInShop = () => {    
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys
-      
-        let products = Products.map((item,index) => {
+        let products = props.products.map((item,index) => {
             return (              
                 <div className="product-item" key={index}>
                    <div className={classNames("cell", "good-cell")}>
                             <div className="good">
                                 <div className="label">
-                                   <input type="checkbox" className="checkbox" checked={item.checked} />
+                                   <input type="checkbox" className="checkbox" 
+                                    checked={item.checked}
+                                    onChange={() => reverseSelectAll(props.products, SelectAll)}
+                                   />
                                </div>
                                <div className="good-info">
                                     <Link to={`/product/${item._id}`} className="img-container">
@@ -127,7 +136,7 @@ function ProductsByShop(props){
    }
 
 
-    if(!WriterId){
+    if(!props.shopId){
        return null;
     }else{
         return(
@@ -138,18 +147,17 @@ function ProductsByShop(props){
                             <input type="checkbox"
                               className="checkall"
                               checked={SelectAll}
-                              onChange={() => reverseSelectAll(Products,SelectAll)}
+                              onChange={() => reverseSelectAll(props.products, SelectAll)}
                               ></input>
                             <div>
-                                <p>{WriterId}</p>
+                                <p>{props.shopId}</p>
                             </div>
                         </label>
                     </div>
                 </div>
                 <div className="shop-main">
-                    {Products? renderItemsInShop() : <p>loading</p>}
-                </div>
-                
+                    {props.products? renderItemsInShop() : <p>loading</p>}
+                </div>                
             </div>
         )
     }
