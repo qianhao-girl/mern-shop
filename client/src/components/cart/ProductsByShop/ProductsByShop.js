@@ -63,6 +63,10 @@ function ProductsByShop(props){
         }
     }
 
+    const reverseChecked = (productId) => {
+        dispatch(reverseCheckFromCart(productId));
+    }
+
     const incrementQuantity = (productId) => {
         dispatch(addToCart(productId));
     }
@@ -94,7 +98,7 @@ function ProductsByShop(props){
                                 <div className="label">
                                    <input type="checkbox" className="checkbox" 
                                     checked={item.checked}
-                                    onChange={() => reverseSelectAll(props.products, SelectAll)}
+                                    onChange={() => reverseChecked(item._id)}
                                    />
                                </div>
                                <div className="good-info">
