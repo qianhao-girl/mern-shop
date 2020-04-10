@@ -11,7 +11,7 @@ function UserCartBlock(props) {
 
     const dispatch = useDispatch();
     const [Products, setProducts] = useState([]); //products groupBy WriterId,formation:[Map{ writerId: [productObject1, productObject,...]},...]
-    const [Total,setTatol] = useState("");
+    // const [Total,setTatol] = useState("");
     const [SelectAll, setSelectAll] = useState(false);
     const cartTotalBarRef = useRef(null);
 
@@ -46,7 +46,7 @@ function UserCartBlock(props) {
         getProducts();
     },[props.products]);
 
-    useEffect(() => {
+    useEffect(() => {//setSelectAll
         if(props.products){
             let index;
             for(index in props.products){
@@ -86,7 +86,7 @@ function UserCartBlock(props) {
         // );
     const renderCartItemsByShop = () =>{
         if(Products){
-            console.log("Products in UserCartBlock: ",Products);
+            // console.log("Products in UserCartBlock: ",Products);
             return Products.map(
                 (shop,index) => {
                     let key = Products[index].keys().next().value;
@@ -103,7 +103,7 @@ function UserCartBlock(props) {
     }
    
 
-    // const renderCartItemsByShop = () => Products && Products.map((shop,index) =>
+    {// const renderCartItemsByShop = () => Products && Products.map((shop,index) =>
     //     <div className="shop-wrapper" key={index}>
     //         <div className="shop-item">
     //             <div>
@@ -118,137 +118,86 @@ function UserCartBlock(props) {
     //         {renderItemsInShop(index)}
     //     </div>
     // )
+//     const renderItemsInShop = (index) => {    
+//         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys
+//        let writerId =  Products[index].keys().next().value; 
+//        let products = Products[index].get(writerId).map((item,index) => {
+//            return (              
+//                <div className="product-item" key={index}>
+//                    <div className={classNames("cell", "good-cell")}>
+//                            <div className="good">
+//                                <div className="label">
+//                                    <input type="checkbox" className="checkbox" checked={item.checked} onChange={() => reverseCheckItem(item._id)}/>
+//                                </div>
+//                                <div className="good-info">
+//                                    <Link to={`/product/${item._id}`} className="img-container">
+//                                        <img src={`http://localhost:5000/${item.images[0]}`}></img>
+//                                        {item.stock <= 0 ? <img src={ soldoutImage } className="img-soldout"/> : null}
+//                                    </Link>
+//                                    <div className="good-detail">
+//                                        <div className="titile">description</div>
+//                                        <div className="attr">
+//                                            pick a feature
+//                                        </div>
+//                                    </div>
+//                                </div>
+//                            </div>
+//                        </div>
+//                    <div className={classNames("cell", "price-cell")}>
+//                        <p>{`$${item.price}`}</p>
+//                    </div>
+//                    <div className={classNames("cell", 'quantity-cell')}>
+//                        <div className="quantity-console">
+//                            <button className='quantity-minus'>-</button>
+//                            <input type='number' value={item.quantity} ></input>
+//                            <button className='quantity-plus' onClick={() => IncrementQuantity(item._id)}>+</button>
+//                        </div>
+//                    </div>
+//                    <div className={classNames("cell", "handle-cell")}>
+//                        <div>delete</div>
+//                        <div>move to wishlist</div>
+//                    </div>  
+//                </div>
+//            )
+//        });
+//        return products;    
+//    }
+    // const reverseCheckItem = (productId) => {
+    //     dispatch(reverseCheckFromCart(productId))
+    // }
 
-    
-
-    const renderItemsInShop = (index) => {    
-        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys
-       let writerId =  Products[index].keys().next().value; 
-       let products = Products[index].get(writerId).map((item,index) => {
-           return (              
-               <div className="product-item" key={index}>
-                   <div className={classNames("cell", "good-cell")}>
-                           <div className="good">
-                               <div className="label">
-                                   <input type="checkbox" className="checkbox" checked={item.checked} onChange={() => reverseCheckItem(item._id)}/>
-                               </div>
-                               <div className="good-info">
-                                   <Link to={`/product/${item._id}`} className="img-container">
-                                       <img src={`http://localhost:5000/${item.images[0]}`}></img>
-                                       {item.stock <= 0 ? <img src={ soldoutImage } className="img-soldout"/> : null}
-                                   </Link>
-                                   <div className="good-detail">
-                                       <div className="titile">description</div>
-                                       <div className="attr">
-                                           pick a feature
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   <div className={classNames("cell", "price-cell")}>
-                       <p>{`$${item.price}`}</p>
-                   </div>
-                   <div className={classNames("cell", 'quantity-cell')}>
-                       <div className="quantity-console">
-                           <button className='quantity-minus'>-</button>
-                           <input type='number' value={item.quantity} ></input>
-                           <button className='quantity-plus' onClick={() => IncrementQuantity(item._id)}>+</button>
-                       </div>
-                   </div>
-                   <div className={classNames("cell", "handle-cell")}>
-                       <div>delete</div>
-                       <div>move to wishlist</div>
-                   </div>  
-               </div>
-           )
-       });
-       return products;    
-   }
-
-
-    const reverseCheckItem = (productId) => {
-        dispatch(reverseCheckFromCart(productId))
-    }
-
-
-    const IncrementQuantity = (productId) => {
-        dispatch(addToCart(productId));
-    }
-    const isCheckedAllInShop = (writerId) => {
-
+    // const IncrementQuantity = (productId) => {
+    //     dispatch(addToCart(productId));
+    // }
     }
 
     
+//@parameter products: Map([[shopId: String|ObjectId,products: Array<Product> ])
+    // const calculateTotal = (products) => {
+    //     products.reduce((accu,shop) => {
+    //         shop.values().next().value.forEach(product =>{
+    //             if(product.checked){
+    //                 accu += product.price * product.quantity;
+    //             }
+    //         });
+    //         return accu;
+    //     },0.0)
+    // }
 
-    const calculateTotal = (products) => {
-        products.reduce((accu,shop) => {
-            shop.values().next().value.forEach(product =>{
-                if(product.checked){
-                    accu += product.price * product.quantity;
-                }
-            });
-            return accu;
-        },0.0)
+    function calculateTotal(products){
+        return products.reduce((accu, product) => accu + product.price*product.quantity, 0.0);
     }
 
-    const updateQuantityValue = (writerId, productId, value) => {
-        let currentIndex = -1;
-        let productIndex = -1;
-        for(let index in Products){
-            if(Products[index].keys().next().value === writerId){
-                currentIndex = index;
-            }  
-        }
-        if(currentIndex<0) {return};
-        productIndex  =  Products[currentIndex].get(writerId).indexOf((item) => item._id === productId);
-        if(productIndex > 0){ 
-            let newProducts  = [...Products]; //,array of maps, which point to the same map in the old Products
-            let inc = value - Products[currentIndex].get(writerId)[productIndex].quantity;
-            newProducts[currentIndex].get(writerId)[productIndex].quantity = value;
-            setProducts(newProducts); //update value in component before update it in the backend,
-            //!!! be mind backend update might fail, so frontend value would be unlegitimate
-            //TODO: update backend
-            dispatch(addToCart(productId, inc));
-        }       
-    }
-   
-    //unefficienct,because when user intened to input 17, 1 and 17 would be sended back to backend seperately,
-    //notheless we only want send 17 to backend
-    const onQuantityInputChangeHandlerCreator = (writerId, productId) => {
-        return (event) => {
-            let quantity = parseInt(event.currentTarget.value,10); 
-            updateQuantityValue(writerId, productId, quantity);   
-        }
-    }
-
-
-    
-    const onQuantityIncrementClickHandlerCreator = (writerId, productId, inc) => {//inc in [-1,1]
-        return (event) => {
-            let currentIndex = -1;
-            let productIndex = -1;
-            for(let index in Products){
-                if(Products[index].keys().next().value === writerId){
-                    currentIndex = index;
-                }  
+    function countChecked(products){
+        return products.reduce((accu, product) => {
+            if(product.checked){
+                return accu + product.quantity
+            }else{
+                return accu;
             }
-            if(currentIndex<0) {return};
-            productIndex  =  Products[currentIndex].get(writerId).indexOf((item) => item._id === productId);
-            if(productIndex > 0){
-                let newProducts  = [...Products];
-                newProducts[currentIndex].get(writerId)[productIndex].quantity += inc;
-                setProducts(newProducts); //update value in component
-                //TODO: update backend
-                if(inc===1){
-                    dispatch(addToCart(productId));
-                }
-                // if(inc===-1){
-                //     dispatch(removeFromCart(productId));
-                // }
-            }                         
-        }
+        }, 0)
     }
+ 
         
     return (
         <div className="cart-main">
@@ -273,12 +222,21 @@ function UserCartBlock(props) {
                         checked={SelectAll}
                         onChange={() => reverseSelectAll(SelectAll)}
                     />
-                    <span>Select All<em className="allNum">{props.products? props.products.length : null}</em></span>
+                    <span>Select All<em className="allNum">{props.products? `(${props.products.length})` : null}</em></span>
                 </label>
                 <div className="delete-selected-item">delete</div>
                 <div className="clear-cart">clear cart</div>
                 <div className="cart-total-price">
-                    subtitle
+                    {props.products 
+                    && (<div stytle={{display: "block;"}}>
+                            <p style={{display:"inline", color:"grey", boxSizing:"border-box", marginRight:"0px"}}>
+                                {`Tatal(${countChecked(props.products)}):`}
+                            </p>
+                            <p style={{display: "inline", color:"red",boxSizing:"border-box", marginLeft:"0px"}}>
+                                {`US$${Number.parseFloat(calculateTotal(props.products)).toFixed(2)}`}
+                            </p>
+                       </div>)
+                    }
                 </div>
                 <Link to="" className="checkout-btn">Continue</Link>
             </div> 
