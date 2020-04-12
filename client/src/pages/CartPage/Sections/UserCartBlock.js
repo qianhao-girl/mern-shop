@@ -2,8 +2,7 @@ import React,{ useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { addToCart, removeFromCart, reverseCheckFromCart } from '../../../store/actions/index';
 import { useDispatch } from 'react-redux';
-import classNames from 'classnames';
-import soldoutImage from '../../../assets/images/soldout.png';
+// import classNames from 'classnames';
 import  './UserCartBlock.css';
 import ProductsByShop from '../../../components/cart/ProductsByShop/ProductsByShop';
 
@@ -217,7 +216,7 @@ function UserCartBlock(props) {
                 </div> 
             </div>
             <div className="cart-total" ref={cartTotalBarRef}>
-                <label>
+                <label className="label-input">
                     <input type="checkbox" 
                         checked={SelectAll}
                         onChange={() => reverseSelectAll(SelectAll)}
