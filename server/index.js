@@ -20,6 +20,8 @@ app.use(cookieParser());
 
 
 app.use('/uploads', express.static(path.join(__dirname,'../uploads')));
+//pulic video access
+app.use('/videos',express.static(path.join(__dirname, '../uploads/videos')));
 app.get("/",(req,res) => {
     res.send("hello world!");
 });
