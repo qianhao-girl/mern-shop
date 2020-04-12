@@ -1,7 +1,7 @@
 {
   "name": "boilerplate",
   "version": "1.0.0",
-  "description": "mern_boilerplate",
+  "description": "mern-shop-playground",
   "main": "index.js",
   "engine": {
     "node": "10.16.2",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qianhao-girl/mern-boilerplate.git"
+    "url": "https://github.com/qianhao-girl/mern-shop.git"
   },
   "author": "John Ahn",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/qianhao-girl/mern-boilerplate/issues"
+    "url": "https://github.com/qianhao-girl/mern-shop.git/issues"
   },
-  "homepage": "https://github.com/qianhao-girl/mern-boilerplate#readme",
+  "homepage": "https://github.com/qianhao-girl/mern-shop.git#readme",
   "dependencies": {
     "bcrypt": "^3.0.8",
     "body-parser": "^1.19.0",
