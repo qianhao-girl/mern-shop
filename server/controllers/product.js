@@ -1,4 +1,5 @@
 const Product = require('../database/models/product');
+const Comment = require('../database/models/comment');
 
 
 //{ begin of image file upload }
@@ -105,4 +106,32 @@ exports.getProductById = (req, res, next) =>{
         // console.log("productById",products);
         return res.status(200).send(products);
     })//products: Array
+}
+
+
+//================================
+//           COMMENTS SECTION
+//================================ 
+
+exports.getComments = (req,res) => {
+    Comment.find({ "postId": req.query.id })
+    .populate("writer")
+    .exec((err, comments) => {
+        if(err) return res.json({ success: false, err});
+        return res.status(200).json({ success: true, comments});
+    });
+}
+
+exports.postComment = (req, res) => {
+    const comment = new Comment(req.body);
+    comment.save((err, comment) => {
+        if(err) return res.json({ success: false, err});
+
+        Comment.find({_id: comment._id})
+        .populate('writer')
+        .exec((err, result) => {
+            if(err) return res.json({ success: false, err });
+            return res.status(200).json({ success: true, result });
+        });
+    })
 }
