@@ -1,1 +1,54 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
+
+.singleProduct-main{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 25px;
+    vertical-align: baseline;
+}
+
+.w{
+    width: 1190px;
+    margin: auto;
+    vertical-align: center;
+}
+
+.preview{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 500px;
+    height: 600px;
+    padding: auto;
+}
+
+.summary{
+    display: inline-block;
+    box-sizing: border-box;
+    /* height: 600px; */
+    text-align: center;
+}
+
+.choose-btn{
+    display: block;
+}
+
+.addToCart-btn, .buyItNow-btn{
+    font-size: 1rem;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    height: 52px;
+    text-align: center;
+    padding: 0px 40px;
+    margin: 0px 20px 0px 0px;
+    border: 1px solid #e33333;
+    cursor: pointer;
+}
+
+.addToCart-btn{
+    color: #e33333;
+}
+
+.buyItNow-btn{
+    color: whitesmoke;
+    background-color: #e33333;
+}
