@@ -98,3 +98,4 @@ exports.postThumbnailsGenerate = (req, res) => {
 
     })
 }
+

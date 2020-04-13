@@ -9,7 +9,6 @@ router.post('/uploadImage', auth, productController.postUploadImage);
 router.post('/uploadVideo', auth, VideoControllers.postUploadVideo);
 
 router.post('/getProducts',productController.getProducts);
-
 router.get('/product_by_id', productController.getProductById);
 
 router.post('/saveComment', auth, productController.postComment);
