@@ -2,6 +2,7 @@ import React,{ useState} from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SingleComment from './_SingleComment';
+import ReplyComments from './ReplyComments';
 
 
 function Comments(props) {
@@ -36,21 +37,6 @@ function Comments(props) {
         <div>
             <h2>replies</h2>
             <hr></hr>
-            {props.commentLists && props.commentLists.map((comment,index) =>{
-                if(comment.replyTo){
-                    return null;
-                }else{
-                    return (
-                        <React.Fragment key={"comment"+index}>
-                            <SingleComment 
-                                comment={comment} postId={props.postId}
-                                refreshFunction={props.refreshFunction}
-                            />
-                        </React.Fragment>
-                    )
-                }
-            })}
-            {console.log("comments: ", props.commentLists)}
             <form onSubmit={onSubmit}>
                 <input type="text" placeholder="write your comment"
                     value={Content}
@@ -61,6 +47,26 @@ function Comments(props) {
                     onClick={onSubmit}
                 >submit</button>
             </form>
+            {props.commentLists && props.commentLists.map((comment,index) =>{
+                if(comment.replyTo){
+                    return null;
+                }else{
+                    return (
+                        <React.Fragment key={"comment"+index}>
+                            <SingleComment 
+                                comment={comment} postId={props.postId}
+                                refreshFunction={props.refreshFunction}
+                            />
+                            <ReplyComments
+                                commentLists={props.commentLists}
+                                parentCommentId={comment._id}
+                                postId={props.postId}
+                                refreshFunction={props.refreshFunction}
+                             />
+                        </React.Fragment>
+                    )
+                }
+            })}
         </div>
     )
 }

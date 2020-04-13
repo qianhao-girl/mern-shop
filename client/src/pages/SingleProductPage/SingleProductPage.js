@@ -57,6 +57,7 @@ function SingleProductPage(props) {
                     </div> 
                 </div>           
             </div>
+            { console.log(CommentLists)}
             <Comments 
                 commentLists={ CommentLists }
                 postId={ productId }
