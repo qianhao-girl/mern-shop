@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from 'react';
+import React,{ useState, useEffect, useRef} from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { addToCart } from '../../store/actions/index';
@@ -11,7 +11,14 @@ function SingleProductPage(props) {
     const dispatch = useDispatch();
     const [Product, setProduct] = useState({});
     const [CommentLists, setCommentLists] = useState([]);
+    const DetailTabRef = useRef(null);
     
+    useEffect(() => {       
+        window.onscroll = stickToTop;       
+        return () => {
+            window.onscroll = null;
+        }
+    }, []);
 
     useEffect(() => {
         axios.get(`/api/product/product_by_id?id=${productId}&type=single`).then(
@@ -29,6 +36,22 @@ function SingleProductPage(props) {
         });
     }, []);
 
+    const stickToTop = () => {
+        let anchor = document.getElementsByClassName("detail-tab")[0];
+        let elem = document.getElementById("is-sticky");
+        let d1 = window.pageYOffset;
+        let d2 = anchor.offsetTop;
+        if(d1 >= d2 - 4){
+            console.log("stick to top condition just meeted");
+            elem.classList.remove("sp-head");
+            elem.classList.add("fixed");
+        }else{
+           elem.classList.remove("fixed");
+           elem.classList.add("sp-head");
+        }
+        console.log("d1: ",d1,"d2: ",d2);
+    }
+
     const addToCartHandler = (productId) => {
         dispatch(addToCart(productId));
     };
@@ -38,7 +61,7 @@ function SingleProductPage(props) {
     };
 
     return (
-        <div className="singleProduct-main">
+        <>
             <div className="w" >
                 <div className="preview" >
                     <ProductImage details={Product}/>
@@ -57,13 +80,34 @@ function SingleProductPage(props) {
                     </div> 
                 </div>           
             </div>
-            { console.log(CommentLists)}
-            <Comments 
-                commentLists={ CommentLists }
-                postId={ productId }
-                refreshFunction={ updateComments }
-            />
-        </div>       
+            {/* { console.log(CommentLists)} */}
+            <div className="w">
+                <h2>About the Product</h2>
+                <div className="detail-tab" ref={DetailTabRef}>
+                    <ul id="is-sticky" className="sp-head" style={{listStyle: "none"}}>
+                        <li>
+                            <a href="#">Specification</a>                            
+                        </li>
+                        <li>
+                            <a href="#">Details</a>                            
+                        </li>
+                        <li>
+                            <a href="#reviews">Reviews</a>
+                        </li>
+                        <li className="sp-more">
+                            <button className="is-large" onClick={() => addToCartHandler(Product._id)}>Add to Cart</button>
+                        </li>                    
+                    </ul>                    
+                </div>
+                <div className="details">
+                    <Comments id="reviews"
+                        commentLists={ CommentLists }
+                        postId={ productId }
+                        refreshFunction={ updateComments }
+                     />
+                </div>
+            </div>
+        </>       
     )
 }
 

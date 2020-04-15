@@ -52,3 +52,45 @@
     color: whitesmoke;
     background-color: #e33333;
 }
+
+
+.detail-tab{
+    background-color: gray;
+    box-sizing: border-box;
+    height: 42px;
+}
+
+.sp-head{
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.detail-tab li{
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.detail-tab li>a{
+    line-height: 40px;
+}
+
+.is-large{
+    display: none;
+}
+
+.fixed{
+    position: fixed;
+    top: 0px;
+}
+
+.fixed .is-large{
+    display: block;
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    width:150px;
+    background-color: black;
+    color: whitesmoke;
+}
