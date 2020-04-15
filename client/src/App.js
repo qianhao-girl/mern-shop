@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import './style.global.css';
 
 import Auth from './hocs/Auth/auth';
 import Layout from './hocs/Layout/Layout';
