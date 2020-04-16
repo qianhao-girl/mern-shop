@@ -41,15 +41,13 @@ function SingleProductPage(props) {
         let elem = document.getElementById("is-sticky");
         let d1 = window.pageYOffset;
         let d2 = anchor.offsetTop;
-        if(d1 >= d2 - 4){
-            console.log("stick to top condition just meeted");
+        if(d1 >= d2 - 3){
             elem.classList.remove("sp-head");
             elem.classList.add("fixed");
         }else{
            elem.classList.remove("fixed");
            elem.classList.add("sp-head");
         }
-        console.log("d1: ",d1,"d2: ",d2);
     }
 
     const addToCartHandler = (productId) => {
