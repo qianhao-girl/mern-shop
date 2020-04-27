@@ -67,6 +67,13 @@ function UserCartBlock(props) {
         }
     }, [Products]);
 
+    useEffect(() => {
+        stickToBottom();
+        window.onscroll = stickToBottom;
+        return () => {
+            window.onscroll = null;
+        }
+    });
 
     const reverseSelectAll = (selectAll) => {
         let productIds = props.products.map(product => {
@@ -75,6 +82,17 @@ function UserCartBlock(props) {
             }else return null;
         });
         dispatch(reverseCheckFromCart(productIds));
+    }
+
+    const stickToBottom = () => {
+        let cartMain = document.getElementsByClassName("cart-main")[0];
+        let cartFixed = document.getElementsByClassName("cart-fixed")[0];
+        let cmp = cartMain.offsetHeight - window.innerHeight + cartMain.offsetTop - window.pageYOffset;
+        if(cmp > 0){
+            cartFixed.classList.add("cart-fixed-bottom");
+        }else{
+            cartFixed.classList.remove("cart-fixed-bottom");
+        };   
     }
 
 
@@ -200,45 +218,51 @@ function UserCartBlock(props) {
         
     return (
         <div className="cart-main">
-            <div className="cart-list">
-                <div className="list-head">
-                    <div className="selectall-head-cell">
-                        <input type="checkbox" className="select-check"
-                            checked={SelectAll}
-                            onChange={() => reverseSelectAll(SelectAll)}
-                        />
+            <div className="w">
+                <div className="cart-list">
+                    <div className="list-head">
+                        <div className="selectall-head-cell">
+                            <input type="checkbox" className="select-check"
+                                checked={SelectAll}
+                                onChange={() => reverseSelectAll(SelectAll)}
+                            />
+                        </div>
+                        <div className="price-head-cell"> Price</div>
+                        <div className="quantity-head-cell">quantity</div>
                     </div>
-                    <div className="price-head-cell"> Price</div>
-                    <div className="quantity-head-cell">quantity</div>
+                    <div className="list-main">
+                        {renderCartItemsByShop()}
+                    </div> 
                 </div>
-                <div className="list-main">
-                    {renderCartItemsByShop()}
-                </div> 
             </div>
-            <div className="cart-total" ref={cartTotalBarRef}>
-                <label className="label-input">
-                    <input type="checkbox" 
-                        checked={SelectAll}
-                        onChange={() => reverseSelectAll(SelectAll)}
-                    />
-                    <span>Select All<em className="allNum">{props.products? `(${props.products.length})` : null}</em></span>
-                </label>
-                <div className="delete-selected-item">delete</div>
-                <div className="clear-cart">clear cart</div>
-                <div className="cart-total-price">
-                    {props.products 
-                    && (<div stytle={{display: "block;"}}>
-                            <p style={{display:"inline", color:"grey", boxSizing:"border-box", marginRight:"0px"}}>
-                                {`Tatal(${countChecked(props.products)}):`}
-                            </p>
-                            <p style={{display: "inline", color:"red",boxSizing:"border-box", marginLeft:"0px"}}>
-                                {`US$${Number.parseFloat(calculateTotal(props.products)).toFixed(2)}`}
-                            </p>
-                       </div>)
-                    }
+            <div className="cart-fixed">
+                <div className="w">
+                    <div className="cart-total" ref={cartTotalBarRef}>
+                        <label className="label-input">
+                            <input type="checkbox" 
+                                checked={SelectAll}
+                                onChange={() => reverseSelectAll(SelectAll)}
+                            />
+                            <span>Select All<em className="allNum">{props.products? `(${props.products.length})` : null}</em></span>
+                        </label>
+                        <div className="delete-selected-item">delete</div>
+                        <div className="clear-cart">clear cart</div>
+                        <div className="cart-total-price">
+                            {props.products 
+                            && (<div stytle={{display: "block;"}}>
+                                    <p style={{display:"inline", color:"grey", boxSizing:"border-box", marginRight:"0px"}}>
+                                        {`Tatal(${countChecked(props.products)}):`}
+                                    </p>
+                                    <p style={{display: "inline", color:"red",boxSizing:"border-box", marginLeft:"0px"}}>
+                                        {`US$${Number.parseFloat(calculateTotal(props.products)).toFixed(2)}`}
+                                    </p>
+                            </div>)
+                            }
+                        </div>
+                        <Link to="" className="checkout-btn">Continue</Link>
+                    </div> 
                 </div>
-                <Link to="" className="checkout-btn">Continue</Link>
-            </div> 
+            </div>
         </div>    			
     )
 }
