@@ -1,8 +1,19 @@
 .cart-main{
-    /* position: relative; */
+    position: relative;
     width: 100vw;
     padding: auto;
     background-color: #ededed;
+}
+
+.cart-fixed{
+    box-sizing: border-box;
+}
+.cart-fixed-bottom{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 500;
+    background-color: white;
 }
 
 .list-main{

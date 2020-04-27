@@ -53,8 +53,7 @@ function CartPage(props) {
 
     return (
         <div >
-            {console.log("user.cartDetail: ",user.cartDetail? user.cartDetail: "null")}
-            <UserCartBlock products={user.cartDetail}/>            
+            <UserCartBlock products={user.cartDetail}/>           
         </div>
     )
 }
