@@ -23,12 +23,11 @@
 
 
 
-![app-current-state-gif](demos/gifs/developing.gif);
+![app-current-state-gif](demos/gifs/developing.gif)
 
 
-<a name="myfootnote1">1</a>:
+---
 
-    ![backToTop gif](demos/gifs/backToTop.gif)
 
 
 <a name="myfootnote2">2</a>: 
@@ -37,3 +36,7 @@
 
 <a name="myfootnote3">3</a>:
     ![stickyToTop](demos/gifs/stickyToTop.gif)
+ 
+ 
+<a name="myfootnote1">1</a>:
+    ![backToTop gif](demos/gifs/backToTop.gif)
