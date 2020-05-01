@@ -27,6 +27,7 @@
 
 
 <a name="myfootnote1">1</a>:
+
     ![backToTop gif](demos/gifs/backToTop.gif)
 
 
