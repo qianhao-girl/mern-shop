@@ -26,7 +26,7 @@
 ![app-current-state-gif](demos/gifs/developing.gif);
 
 
-<a name="myfootnote1">1</a>: 
+<a name="myfootnote1">1</a>:
     ![backToTop gif](demos/gifs/backToTop.gif)
 
 
