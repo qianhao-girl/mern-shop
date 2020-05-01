@@ -5,9 +5,9 @@
 - login(inculde reset password through email)
 - logout
 - productUpload(not inculde upload video)
-- backToTop. [^1]
-- stickyToBottom [^2]
-- stickyToTop. [^3]
+- backToTop. <sup>[1](#myfootnote1)</sup>
+- stickyToBottom <sup>[2](#myfootnote2)</sup>
+- stickyToTop. <sup>[3](#myfootnote3)</sup>
 - the CRUD of cartItem,selectAll/deleteAll and calculate the total number and price of checked cartItem
 - display and search products and link each products to SingleProductPage
 - display single product and recursive comment section of this product
@@ -26,14 +26,13 @@
 ![app-current-state-gif](demos/gifs/developing.gif);
 
 
-
-[^1]: gif
+<a name="myfootnote1">1</a>: 
     ![backToTop gif](demos/gifs/backToTop.gif)
 
 
-[^2]: gif
+<a name="myfootnote2">2</a>: 
     ![stickyToBottom](demos/gifs/stickyToBottom.gif)
 
 
-[^3]: gif
+<a name="myfootnote3">3</a>:
     ![stickyToTop](demos/gifs/stickyToTop.gif)
