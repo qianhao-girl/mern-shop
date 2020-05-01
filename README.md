@@ -27,11 +27,11 @@
 
 
 
-[^3]: gif
+[^1]: gif
     ![backToTop gif](demos/gifs/backToTop.gif)
 
 
-[^3]: gif
+[^2]: gif
     ![stickyToBottom](demos/gifs/stickyToBottom.gif)
 
 
