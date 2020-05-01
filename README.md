@@ -5,8 +5,9 @@
 - login(inculde reset password through email)
 - logout
 - productUpload(not inculde upload video)
-- backToTop [^1]
-- stickyToTop/Bottom and change the UI accordingly [^2] [^3]
+- backToTop. [^1]
+- stickyToBottom [^2]
+- stickyToTop. [^3]
 - the CRUD of cartItem,selectAll/deleteAll and calculate the total number and price of checked cartItem
 - display and search products and link each products to SingleProductPage
 - display single product and recursive comment section of this product
@@ -20,13 +21,19 @@
 * styling SingleProductPage
 * ...
 
+
+
 ![app-current-state-gif](demos/gifs/developing.gif);
 
-[^1]: gif
+
+
+[^3]: gif
     ![backToTop gif](demos/gifs/backToTop.gif)
 
-[^2]: gif
+
+[^3]: gif
     ![stickyToBottom](demos/gifs/stickyToBottom.gif)
+
 
 [^3]: gif
     ![stickyToTop](demos/gifs/stickyToTop.gif)
